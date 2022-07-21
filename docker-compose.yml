@@ -1,0 +1,19 @@
+services:
+  app:
+    build: .
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/app
+    environment:
+      - HOST=0.0.0.0
+    command: yarn start
+  cypress:
+    image: cypress/included:10.3.0
+    depends_on:
+      - app
+    environment:
+      - CYPRESS_baseUrl=http://app:3000
+    working_dir: /app
+    volumes:
+      - .:/app
