@@ -2,7 +2,16 @@ import { STORAGE_KEY } from '../../app/constants.js'
 
 let cards = JSON.parse(window.localStorage[STORAGE_KEY] || '[]')
 
+let testCards = []
+let testInProgress = false
+let currentTestCard
+
 const cardsDOMList = document.querySelector('#cards')
+const startTestButton = document.querySelector('button#start-test')
+const createCardFieldSet = document.querySelector('fieldset#create-card-fieldset')
+const flipCardButton = document.querySelector('button#flip-card')
+const nextCardButton = document.querySelector('button#next-card')
+const testContainer = document.querySelector('div#test-container')
 
 const addCard = (frontText, backText) => {
   frontText = frontText?.trim()
@@ -39,6 +48,8 @@ const saveToLocalStorage = () => {
   window.localStorage[STORAGE_KEY] = JSON.stringify(cards)
 }
 
+const toggleStartButtonEnabled = (isOn) => startTestButton.disabled = !isOn
+
 const displayCards = () => {
   const cardFragments = cards.map((card, index) => {
     const fragment = document.createRange().createContextualFragment(
@@ -52,6 +63,8 @@ const displayCards = () => {
   
   cardsDOMList.innerHTML = ''
   cardsDOMList.append(...cardFragments)
+
+  toggleStartButtonEnabled(cards.length > 0)
 }
 
 const createCard = () => {
@@ -66,6 +79,66 @@ const createCard = () => {
   backText.value = ''
 }
 
+const displayCardText = (text) => {
+  testContainer.innerHTML = `<p>${text}</p>`
+}
+
+const shiftAndDisplayNextCard = () => {
+  currentTestCard = new CardTestPresenter(testCards.shift())
+  displayCardText(currentTestCard.nextFaceText())
+
+  if(testCards.length === 0) {
+    nextCardButton.disabled = true
+  }
+}
+
+const toggleTestStart = () => {
+  if(!testInProgress) {
+    testInProgress = true
+
+    createCardFieldSet.disabled = true
+    startTestButton.innerText = 'End Test'
+    flipCardButton.disabled = false
+    nextCardButton.disabled = false
+    
+    testCards = structuredClone(cards)
+
+    shiftAndDisplayNextCard()
+  } else {
+    testInProgress = false
+
+    createCardFieldSet.disabled = false
+    startTestButton.innerText = 'Start Test'
+    flipCardButton.disabled = true
+    nextCardButton.disabled = true
+
+    testContainer.innerHTML = ''
+  }
+}
+
+const flipCurrentTestCard = () => {
+  displayCardText(currentTestCard.nextFaceText())
+}
+
+class CardTestPresenter {
+  constructor(card) {
+    this.card = card
+    this.frontIsCurrentFace = true
+  }
+
+  nextFaceText() {
+    const text = this.frontIsCurrentFace ? this.card.frontText : this.card.backText
+
+    this.frontIsCurrentFace = !this.frontIsCurrentFace
+
+    return text
+  }
+}
+
 document.querySelector('#save-btn').addEventListener('click', createCard)
+
+startTestButton.addEventListener('click', toggleTestStart)
+flipCardButton.addEventListener('click', flipCurrentTestCard)
+nextCardButton.addEventListener('click', shiftAndDisplayNextCard)
 
 displayCards()

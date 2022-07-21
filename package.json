@@ -3,6 +3,7 @@
   "packageManager": "yarn@4.0.0-rc.13",
   "scripts": {
     "cypress:open": "cypress open",
+    "cypress:run": "cypress run --config video=false",
     "start": "node app/server.js"
   },
   "devDependencies": {
