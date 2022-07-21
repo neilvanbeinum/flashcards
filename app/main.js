@@ -92,6 +92,12 @@ const shiftAndDisplayNextCard = () => {
   }
 }
 
+const toggleCardListDisabled = (isDisabled) => {
+  document.querySelectorAll('.delete-card').forEach(
+    button => button.disabled = isDisabled
+  )
+}
+
 const toggleTestStart = () => {
   if(!testInProgress) {
     testInProgress = true
@@ -100,6 +106,7 @@ const toggleTestStart = () => {
     startTestButton.innerText = 'End Test'
     flipCardButton.disabled = false
     nextCardButton.disabled = false
+    toggleCardListDisabled(true)
     
     testCards = structuredClone(cards)
 
@@ -111,6 +118,7 @@ const toggleTestStart = () => {
     startTestButton.innerText = 'Start Test'
     flipCardButton.disabled = true
     nextCardButton.disabled = true
+    toggleCardListDisabled(false)
 
     testContainer.innerHTML = ''
   }

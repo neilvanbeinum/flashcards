@@ -23,6 +23,10 @@ describe('Card Test', () => {
 
     cy.contains('button', 'Start Test').click()
 
+    cy.get('#cards li').each((item) => {
+      cy.wrap(item).contains('button', 'Delete').should('be.disabled')
+    })
+
     cy.get('fieldset#create-card-fieldset').should('be.disabled')
     
     cy.get('div#test-container').contains('front1')
