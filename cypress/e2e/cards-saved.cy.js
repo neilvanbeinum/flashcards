@@ -48,3 +48,24 @@ it('Saves cards to localstorage when added', () => {
     ])
   })
 })
+
+it('Saves cards to localstorage when deleted', () => {
+  const cards = [
+    {
+      frontText: 'frontText1',
+      backText: 'backText1'
+    }
+  ]
+
+  cy.window().then(window => {
+    window.localStorage[STORAGE_KEY] = JSON.stringify(cards)
+  })
+
+  cy.visit('/')
+
+  cy.get('#cards li').eq(0).contains('button', 'Delete').click()
+
+  cy.window().then(window => {
+    expect(JSON.parse(window.localStorage[STORAGE_KEY])).to.be.empty
+  })
+})

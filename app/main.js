@@ -30,6 +30,7 @@ const removeCardAt = (index) => {
       ...cards.slice(index + 1),
     ]
 
+    saveToLocalStorage()
     displayCards()
   }
 }
