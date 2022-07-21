@@ -8,17 +8,26 @@
 </head>
 <body>
   <form>
-    <label for="front-text">Front Text</label>
-    <input type="text" id="front-text">
-    
-    <label for="back-text">Back</label>
-    <input type="text" id="back-text">
-
-    <button type="button" id="save-btn">Save Card</button>
+    <fieldset id="create-card-fieldset">
+      <label for="front-text">Front Text</label>
+      <input type="text" id="front-text">
+      
+      <label for="back-text">Back</label>
+      <input type="text" id="back-text">
+      
+      <button type="button" id="save-btn">Save Card</button>
+    </fieldset>
   </form>
 
   <ul id="cards">
   </ul>
+
+  <button type="button" id="start-test" disabled>Start Test</button>
+
+  <div id="test-container"></div>
+  
+  <button type="button" id="flip-card">Flip Card</button>
+  <button type="button" id="next-card" disabled>Next Card</button>
   
   <script src="./main.js" type="module"></script>
 </body>
