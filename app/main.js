@@ -1,4 +1,4 @@
-import { STORAGE_KEY } from '../../app/constants.js'
+import { STORAGE_KEY } from './constants.js'
 
 let cards = JSON.parse(window.localStorage[STORAGE_KEY] || '[]')
 
