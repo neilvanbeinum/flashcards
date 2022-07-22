@@ -104,17 +104,25 @@ const toggleCardListDisabled = (isDisabled) => {
   )
 }
 
+const toggleCardManagementInputsDisabled = (isDisabled) => {
+  frontTextInput.disabled = isDisabled
+  backTextInput.disabled = isDisabled
+  saveCardButton.disabled = isDisabled
+  toggleCardListDisabled(isDisabled)
+}
+
+const toggleCardTestInputsDisabled = (isDisabled) => {
+  flipCardButton.disabled = isDisabled
+  nextCardButton.disabled = isDisabled
+}
+
 const toggleTestStart = () => {
   if(!testInProgress) {
     testInProgress = true
 
-    frontTextInput.disabled = true
-    backTextInput.disabled = true
-    saveCardButton.disabled = true
+    toggleCardManagementInputsDisabled(true)
+    toggleCardTestInputsDisabled(false)
     startTestButton.innerText = 'End Test'
-    flipCardButton.disabled = false
-    nextCardButton.disabled = false
-    toggleCardListDisabled(true)
 
     testCards = structuredClone(cards)
 
@@ -122,13 +130,9 @@ const toggleTestStart = () => {
   } else {
     testInProgress = false
 
-    frontTextInput.disabled = false
-    backTextInput.disabled = false
-    saveCardButton.disabled = false
+    toggleCardManagementInputsDisabled(false)
+    toggleCardTestInputsDisabled(true)
     startTestButton.innerText = 'Start Test'
-    flipCardButton.disabled = true
-    nextCardButton.disabled = true
-    toggleCardListDisabled(false)
 
     testContainer.innerHTML = ''
   }
