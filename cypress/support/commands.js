@@ -5,3 +5,7 @@ Cypress.Commands.add('loadCardsIntoStorage', (cards) => {
     window.localStorage[STORAGE_KEY] = JSON.stringify(cards)
   })
 })
+
+Cypress.Commands.add('getInputForLabel', (label) => {
+  return cy.contains(label).next().shadow().find('input')
+})

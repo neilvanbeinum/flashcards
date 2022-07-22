@@ -12,10 +12,12 @@ let currentTestCard
 
 const cardsDOMList = document.querySelector('#cards')
 const startTestButton = document.querySelector('#start-test')
-const createCardFieldSet = document.querySelector('fieldset#create-card-fieldset')
 const flipCardButton = document.querySelector('#flip-card')
 const nextCardButton = document.querySelector('#next-card')
+const frontTextInput = document.querySelector('#front-text')
+const backTextInput = document.querySelector('#back-text')
 const testContainer = document.querySelector('div#test-container')
+const saveCardButton = document.querySelector('#save-btn')
 
 const addCard = (frontText, backText) => {
   frontText = frontText?.trim()
@@ -106,7 +108,9 @@ const toggleTestStart = () => {
   if(!testInProgress) {
     testInProgress = true
 
-    createCardFieldSet.disabled = true
+    frontTextInput.disabled = true
+    backTextInput.disabled = true
+    saveCardButton.disabled = true
     startTestButton.innerText = 'End Test'
     flipCardButton.disabled = false
     nextCardButton.disabled = false
@@ -118,7 +122,9 @@ const toggleTestStart = () => {
   } else {
     testInProgress = false
 
-    createCardFieldSet.disabled = false
+    frontTextInput.disabled = false
+    backTextInput.disabled = false
+    saveCardButton.disabled = false
     startTestButton.innerText = 'Start Test'
     flipCardButton.disabled = true
     nextCardButton.disabled = true
@@ -147,8 +153,7 @@ class CardTestPresenter {
   }
 }
 
-document.querySelector('#save-btn').addEventListener('click', createCard)
-
+saveCardButton.addEventListener('click', createCard)
 startTestButton.addEventListener('click', toggleTestStart)
 flipCardButton.addEventListener('click', flipCurrentTestCard)
 nextCardButton.addEventListener('click', shiftAndDisplayNextCard)

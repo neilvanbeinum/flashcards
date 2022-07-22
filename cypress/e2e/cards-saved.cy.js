@@ -33,8 +33,8 @@ it('Saves cards to localstorage when added', () => {
 
   cy.visit('/')
 
-  cy.get('#front-text').shadow().find('input').type('What is a cloud?')
-  cy.get('#back-text').shadow().find('input').type('Water vapour in the sky')
+  cy.getInputForLabel('Front Text').type('What is a cloud?')
+  cy.getInputForLabel('Back Text').type('Water vapour in the sky')
 
   cy.contains('Save Card').click()
 

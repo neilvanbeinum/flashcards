@@ -9,24 +9,26 @@
 </head>
 <body>
   <form>
-    <fieldset id="create-card-fieldset">
+    <div class="form-group">
       <label for="front-text">Front Text</label>
       <sl-input id="front-text"></sl-input>
-      
-      <label for="back-text">Back</label>
+    </div>
+
+    <div class="form-group">
+      <label for="back-text">Back Text</label>
       <sl-input id="back-text"></sl-input>
-      
-      <sl-button id="save-btn">Save Card</sl-button>
-    </fieldset>
+    </div>
+
+    <sl-button id="save-btn" variant="primary">Save Card</sl-button>
   </form>
 
   <ul id="cards">
   </ul>
 
-  <sl-button id="start-test" disabled>Start Test</sl-button>
+  <sl-button id="start-test" variant="success" disabled>Start Test</sl-button>
 
   <div id="test-container"></div>
-  
+
   <sl-button id="flip-card">Flip Card</sl-button>
   <sl-button id="next-card" disabled>Next Card</sl-button>
 </body>
