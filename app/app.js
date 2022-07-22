@@ -1,6 +1,7 @@
 import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@shoelace-style/shoelace/dist/components/input/input.js';
 import '@shoelace-style/shoelace/dist/themes/light.css';
+import './main.scss'
 
 import { STORAGE_KEY } from './constants.js'
 let cards = JSON.parse(window.localStorage[STORAGE_KEY] || '[]')
