@@ -4,31 +4,30 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="module" src="app.js"></script>
   <title>Document</title>
 </head>
 <body>
   <form>
     <fieldset id="create-card-fieldset">
       <label for="front-text">Front Text</label>
-      <input type="text" id="front-text">
+      <sl-input id="front-text"></sl-input>
       
       <label for="back-text">Back</label>
-      <input type="text" id="back-text">
+      <sl-input id="back-text"></sl-input>
       
-      <button type="button" id="save-btn">Save Card</button>
+      <sl-button id="save-btn">Save Card</sl-button>
     </fieldset>
   </form>
 
   <ul id="cards">
   </ul>
 
-  <button type="button" id="start-test" disabled>Start Test</button>
+  <sl-button id="start-test" disabled>Start Test</sl-button>
 
   <div id="test-container"></div>
   
-  <button type="button" id="flip-card">Flip Card</button>
-  <button type="button" id="next-card" disabled>Next Card</button>
-  
-  <script src="./main.js" type="module"></script>
+  <sl-button id="flip-card">Flip Card</sl-button>
+  <sl-button id="next-card" disabled>Next Card</sl-button>
 </body>
 </html>

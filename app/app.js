@@ -1,5 +1,9 @@
-import { STORAGE_KEY } from './constants.js'
+import '@shoelace-style/shoelace/dist/components/button/button.js';
+import '@shoelace-style/shoelace/dist/components/input/input.js';
+import '@shoelace-style/shoelace/dist/themes/light.css';
+import './main.scss'
 
+import { STORAGE_KEY } from './constants.js'
 let cards = JSON.parse(window.localStorage[STORAGE_KEY] || '[]')
 
 let testCards = []
@@ -7,25 +11,25 @@ let testInProgress = false
 let currentTestCard
 
 const cardsDOMList = document.querySelector('#cards')
-const startTestButton = document.querySelector('button#start-test')
+const startTestButton = document.querySelector('#start-test')
 const createCardFieldSet = document.querySelector('fieldset#create-card-fieldset')
-const flipCardButton = document.querySelector('button#flip-card')
-const nextCardButton = document.querySelector('button#next-card')
+const flipCardButton = document.querySelector('#flip-card')
+const nextCardButton = document.querySelector('#next-card')
 const testContainer = document.querySelector('div#test-container')
 
 const addCard = (frontText, backText) => {
   frontText = frontText?.trim()
   backText = backText?.trim()
-  
+
   const cardObj = { frontText, backText }
-  
+
   Object.entries(cardObj)
   .forEach(([textKey, textValue]) => {
-    if (!textValue) { 
+    if (!textValue) {
       throw `${textKey} - value required but was blank`
     }
   })
-  
+
   cards.push({
     ...cardObj,
     createdAt: Date.now()
@@ -53,14 +57,14 @@ const toggleStartButtonEnabled = (isOn) => startTestButton.disabled = !isOn
 const displayCards = () => {
   const cardFragments = cards.map((card, index) => {
     const fragment = document.createRange().createContextualFragment(
-      `<li>${card.frontText} - ${card.backText}<button class="delete-card">Delete</button></li>`
+      `<li>${card.frontText} - ${card.backText}<sl-button class="delete-card">Delete</sl-button></li>`
     )
 
-    fragment.querySelector('button.delete-card').addEventListener('click', removeCardAt(index))
+    fragment.querySelector('sl-button.delete-card').addEventListener('click', removeCardAt(index))
 
     return fragment
   })
-  
+
   cardsDOMList.innerHTML = ''
   cardsDOMList.append(...cardFragments)
 
@@ -107,7 +111,7 @@ const toggleTestStart = () => {
     flipCardButton.disabled = false
     nextCardButton.disabled = false
     toggleCardListDisabled(true)
-    
+
     testCards = structuredClone(cards)
 
     shiftAndDisplayNextCard()
