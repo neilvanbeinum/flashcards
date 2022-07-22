@@ -2,7 +2,7 @@ describe('Card Test', () => {
   it('Cannot start a test if no cards have been made', () => {
     cy.visit('/')
 
-    cy.contains('button', 'Start Test').should('be.disabled')
+    cy.contains('Start Test').shadow().find('button').should('be.disabled')
   })
   
   it('Presents a test with all cards', () => {
@@ -21,32 +21,35 @@ describe('Card Test', () => {
     
     cy.visit('/')
 
-    cy.contains('button', 'Start Test').click()
+    cy.contains('Start Test').click()
 
     cy.get('#cards li').each((item) => {
-      cy.wrap(item).contains('button', 'Delete').should('be.disabled')
+      cy.wrap(item).find('.delete-card').shadow().find('button').should('be.disabled')
     })
 
     cy.get('fieldset#create-card-fieldset').should('be.disabled')
     
     cy.get('div#test-container').contains('front1')
     
-    cy.contains('button', 'Flip Card').click()
+    cy.contains('Flip Card').click()
+
     cy.get('div#test-container').contains('back1')
     
-    cy.contains('button', 'Flip Card').click()
+    cy.contains('Flip Card').click()
+
     cy.get('div#test-container').contains('front1')
-
-    cy.contains('button', 'Next Card').click()
-
+    
+    cy.contains('Next Card').click()
+    
     cy.get('div#test-container').contains('front2')
     
-    cy.contains('button', 'Flip Card').click()
+    cy.contains('Flip Card').click()
+
     cy.get('div#test-container').contains('back2')
+    
+    cy.contains('Next Card').shadow().find('button').should('be.disabled')
 
-    cy.contains('button', 'Next Card').should('be.disabled')
-
-    cy.contains('button', 'End Test').click()
+    cy.contains('End Test').click()
     
     cy.get('fieldset#create-card-fieldset').should('not.be.disabled')
 

@@ -33,10 +33,10 @@ it('Saves cards to localstorage when added', () => {
 
   cy.visit('/')
 
-  cy.get('input#front-text').type('What is a cloud?')
-  cy.get('input#back-text').type('Water vapour in the sky')
+  cy.get('#front-text').shadow().find('input').type('What is a cloud?')
+  cy.get('#back-text').shadow().find('input').type('Water vapour in the sky')
 
-  cy.get('button').contains('Save Card').click()
+  cy.contains('Save Card').click()
 
   cy.window().should(window => {
     expect(JSON.parse(window.localStorage[STORAGE_KEY])).to.eql([
@@ -63,7 +63,7 @@ it('Saves cards to localstorage when deleted', () => {
 
   cy.visit('/')
 
-  cy.get('#cards li').eq(0).contains('button', 'Delete').click()
+  cy.get('#cards li').eq(0).contains('Delete').click()
 
   cy.window().then(window => {
     expect(JSON.parse(window.localStorage[STORAGE_KEY])).to.be.empty
