@@ -4,9 +4,10 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --config video=false",
-    "start": "node app/server.js"
+    "start": "parcel app/index.html -p 3000"
   },
   "devDependencies": {
-    "cypress": "10.3.1"
+    "cypress": "10.3.1",
+    "parcel": "^2.6.2"
   }
 }

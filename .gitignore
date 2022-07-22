@@ -12,3 +12,5 @@
 
 cypress/screenshots
 cypress/videos
+dist
+.parcel-cache
