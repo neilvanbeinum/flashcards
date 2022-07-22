@@ -12,10 +12,12 @@ let currentTestCard
 
 const cardsDOMList = document.querySelector('#cards')
 const startTestButton = document.querySelector('#start-test')
-const createCardFieldSet = document.querySelector('fieldset#create-card-fieldset')
 const flipCardButton = document.querySelector('#flip-card')
 const nextCardButton = document.querySelector('#next-card')
+const frontTextInput = document.querySelector('#front-text')
+const backTextInput = document.querySelector('#back-text')
 const testContainer = document.querySelector('div#test-container')
+const saveCardButton = document.querySelector('#save-btn')
 
 const addCard = (frontText, backText) => {
   frontText = frontText?.trim()
@@ -102,15 +104,25 @@ const toggleCardListDisabled = (isDisabled) => {
   )
 }
 
+const toggleCardManagementInputsDisabled = (isDisabled) => {
+  frontTextInput.disabled = isDisabled
+  backTextInput.disabled = isDisabled
+  saveCardButton.disabled = isDisabled
+  toggleCardListDisabled(isDisabled)
+}
+
+const toggleCardTestInputsDisabled = (isDisabled) => {
+  flipCardButton.disabled = isDisabled
+  nextCardButton.disabled = isDisabled
+}
+
 const toggleTestStart = () => {
   if(!testInProgress) {
     testInProgress = true
 
-    createCardFieldSet.disabled = true
+    toggleCardManagementInputsDisabled(true)
+    toggleCardTestInputsDisabled(false)
     startTestButton.innerText = 'End Test'
-    flipCardButton.disabled = false
-    nextCardButton.disabled = false
-    toggleCardListDisabled(true)
 
     testCards = structuredClone(cards)
 
@@ -118,11 +130,9 @@ const toggleTestStart = () => {
   } else {
     testInProgress = false
 
-    createCardFieldSet.disabled = false
+    toggleCardManagementInputsDisabled(false)
+    toggleCardTestInputsDisabled(true)
     startTestButton.innerText = 'Start Test'
-    flipCardButton.disabled = true
-    nextCardButton.disabled = true
-    toggleCardListDisabled(false)
 
     testContainer.innerHTML = ''
   }
@@ -147,8 +157,7 @@ class CardTestPresenter {
   }
 }
 
-document.querySelector('#save-btn').addEventListener('click', createCard)
-
+saveCardButton.addEventListener('click', createCard)
 startTestButton.addEventListener('click', toggleTestStart)
 flipCardButton.addEventListener('click', flipCurrentTestCard)
 nextCardButton.addEventListener('click', shiftAndDisplayNextCard)
