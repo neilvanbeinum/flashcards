@@ -1,1 +1,1 @@
-export const STORAGE_KEY = 'cards'
+export const STORAGE_KEY = "cards"
