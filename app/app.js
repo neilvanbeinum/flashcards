@@ -1,23 +1,24 @@
-import '@shoelace-style/shoelace/dist/components/button/button.js';
-import '@shoelace-style/shoelace/dist/components/input/input.js';
-import '@shoelace-style/shoelace/dist/themes/light.css';
-import './main.scss'
+import "@shoelace-style/shoelace/dist/components/button/button.js"
+import "@shoelace-style/shoelace/dist/components/input/input.js"
+import "@shoelace-style/shoelace/dist/themes/light.css"
+import "./main.scss"
 
-import { STORAGE_KEY } from './constants.js'
-let cards = JSON.parse(window.localStorage[STORAGE_KEY] || '[]')
+import { STORAGE_KEY } from "./constants.js"
+let cards = JSON.parse(window.localStorage[STORAGE_KEY] || "[]")
 
 let testCards = []
 let testInProgress = false
 let currentTestCard
 
-const cardsDOMList = document.querySelector('#cards')
-const startTestButton = document.querySelector('#start-test')
-const flipCardButton = document.querySelector('#flip-card')
-const nextCardButton = document.querySelector('#next-card')
-const frontTextInput = document.querySelector('#front-text')
-const backTextInput = document.querySelector('#back-text')
-const testContainer = document.querySelector('div#test-container')
-const saveCardButton = document.querySelector('#save-btn')
+const cardsDOMList = document.querySelector("#cards")
+const startTestButton = document.querySelector("#start-test")
+const flipCardButton = document.querySelector("#flip-card")
+const nextCardButton = document.querySelector("#next-card")
+const frontTextInput = document.querySelector("#front-text")
+const backTextInput = document.querySelector("#back-text")
+const testContainer = document.querySelector("div#test-container")
+const saveCardButton = document.querySelector("#save-btn")
+const cardDeckSummaryLink = document.querySelector("#card-deck-summary-link")
 
 const addCard = (frontText, backText) => {
   frontText = frontText?.trim()
@@ -25,8 +26,7 @@ const addCard = (frontText, backText) => {
 
   const cardObj = { frontText, backText }
 
-  Object.entries(cardObj)
-  .forEach(([textKey, textValue]) => {
+  Object.entries(cardObj).forEach(([textKey, textValue]) => {
     if (!textValue) {
       throw `${textKey} - value required but was blank`
     }
@@ -34,16 +34,13 @@ const addCard = (frontText, backText) => {
 
   cards.push({
     ...cardObj,
-    createdAt: Date.now()
+    createdAt: Date.now(),
   })
 }
 
 const removeCardAt = (index) => {
   return () => {
-    cards = [
-      ...cards.slice(0, index),
-      ...cards.slice(index + 1),
-    ]
+    cards = [...cards.slice(0, index), ...cards.slice(index + 1)]
 
     saveToLocalStorage()
     displayCards()
@@ -54,35 +51,41 @@ const saveToLocalStorage = () => {
   window.localStorage[STORAGE_KEY] = JSON.stringify(cards)
 }
 
-const toggleStartButtonEnabled = (isOn) => startTestButton.disabled = !isOn
+const toggleStartButtonEnabled = (isOn) => (startTestButton.disabled = !isOn)
 
 const displayCards = () => {
   const cardFragments = cards.map((card, index) => {
-    const fragment = document.createRange().createContextualFragment(
-      `<li>${card.frontText} - ${card.backText}<sl-button class="delete-card">Delete</sl-button></li>`
-    )
+    const fragment = document
+      .createRange()
+      .createContextualFragment(
+        `<li>${card.frontText} - ${card.backText}<sl-button class="delete-card">Delete</sl-button></li>`
+      )
 
-    fragment.querySelector('sl-button.delete-card').addEventListener('click', removeCardAt(index))
+    fragment
+      .querySelector("sl-button.delete-card")
+      .addEventListener("click", removeCardAt(index))
 
     return fragment
   })
 
-  cardsDOMList.innerHTML = ''
+  cardsDOMList.innerHTML = ""
   cardsDOMList.append(...cardFragments)
 
   toggleStartButtonEnabled(cards.length > 0)
+
+  updateCardDeckSummaryLink()
 }
 
 const createCard = () => {
-  const frontText = document.querySelector('#front-text')
-  const backText = document.querySelector('#back-text')
+  const frontText = document.querySelector("#front-text")
+  const backText = document.querySelector("#back-text")
 
   addCard(frontText.value, backText.value)
   saveToLocalStorage()
   displayCards()
 
-  frontText.value = ''
-  backText.value = ''
+  frontText.value = ""
+  backText.value = ""
 }
 
 const displayCardText = (text) => {
@@ -93,15 +96,15 @@ const shiftAndDisplayNextCard = () => {
   currentTestCard = new CardTestPresenter(testCards.shift())
   displayCardText(currentTestCard.nextFaceText())
 
-  if(testCards.length === 0) {
+  if (testCards.length === 0) {
     nextCardButton.disabled = true
   }
 }
 
 const toggleCardListDisabled = (isDisabled) => {
-  document.querySelectorAll('.delete-card').forEach(
-    button => button.disabled = isDisabled
-  )
+  document
+    .querySelectorAll(".delete-card")
+    .forEach((button) => (button.disabled = isDisabled))
 }
 
 const toggleCardManagementInputsDisabled = (isDisabled) => {
@@ -117,12 +120,12 @@ const toggleCardTestInputsDisabled = (isDisabled) => {
 }
 
 const toggleTestStart = () => {
-  if(!testInProgress) {
+  if (!testInProgress) {
     testInProgress = true
 
     toggleCardManagementInputsDisabled(true)
     toggleCardTestInputsDisabled(false)
-    startTestButton.innerText = 'End Test'
+    startTestButton.innerText = "End Test"
 
     testCards = structuredClone(cards)
 
@@ -132,9 +135,9 @@ const toggleTestStart = () => {
 
     toggleCardManagementInputsDisabled(false)
     toggleCardTestInputsDisabled(true)
-    startTestButton.innerText = 'Start Test'
+    startTestButton.innerText = "Start Test"
 
-    testContainer.innerHTML = ''
+    testContainer.innerHTML = ""
   }
 }
 
@@ -149,7 +152,9 @@ class CardTestPresenter {
   }
 
   nextFaceText() {
-    const text = this.frontIsCurrentFace ? this.card.frontText : this.card.backText
+    const text = this.frontIsCurrentFace
+      ? this.card.frontText
+      : this.card.backText
 
     this.frontIsCurrentFace = !this.frontIsCurrentFace
 
@@ -157,9 +162,19 @@ class CardTestPresenter {
   }
 }
 
-saveCardButton.addEventListener('click', createCard)
-startTestButton.addEventListener('click', toggleTestStart)
-flipCardButton.addEventListener('click', flipCurrentTestCard)
-nextCardButton.addEventListener('click', shiftAndDisplayNextCard)
+const updateCardDeckSummaryLink = () => {
+  cardDeckSummaryLink.innerText = `Flashcards in deck (${cards.length})`
+}
 
+const toggleCardListVisibility = () => {
+  cardsDOMList.hidden = !cardsDOMList.hidden
+}
+
+saveCardButton.addEventListener("click", createCard)
+startTestButton.addEventListener("click", toggleTestStart)
+flipCardButton.addEventListener("click", flipCurrentTestCard)
+nextCardButton.addEventListener("click", shiftAndDisplayNextCard)
+cardDeckSummaryLink.addEventListener("click", toggleCardListVisibility)
+
+updateCardDeckSummaryLink()
 displayCards()

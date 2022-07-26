@@ -1,11 +1,11 @@
-const { defineConfig } = require('cypress')
+const { defineConfig } = require("cypress")
 
 module.exports = {
-  reporter: 'dot',
+  reporter: "dot",
   e2e: {
     setupNodeEvents(on, config) {
       // implement node event listeners here
     },
-    baseUrl: 'http://localhost:3000'
+    baseUrl: "http://localhost:3000",
   },
-};
+}
