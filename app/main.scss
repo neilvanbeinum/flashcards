@@ -11,7 +11,8 @@ sl-button.delete-card {
   margin-left: 20px;
 }
 
-.form-group {
+.form-group,
+#test-container {
   margin-top: 15px;
   margin-bottom: 15px;
   text-align: center;
@@ -24,4 +25,8 @@ ul#cards  {
   li + li {
     margin-top: 20px;
   }
+}
+
+sl-card {
+  width: 100%;
 }
