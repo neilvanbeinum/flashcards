@@ -18,6 +18,7 @@ const frontTextInput = document.querySelector("#front-text")
 const backTextInput = document.querySelector("#back-text")
 const testContainer = document.querySelector("div#test-container")
 const saveCardButton = document.querySelector("#save-btn")
+const createCardForm = document.querySelector("form#create-card-form")
 const cardDeckSummaryLink = document.querySelector("#card-deck-summary-link")
 
 const addCard = (frontText, backText) => {
@@ -171,6 +172,11 @@ const toggleCardListVisibility = () => {
 }
 
 saveCardButton.addEventListener("click", createCard)
+createCardForm.addEventListener("submit", (e) => {
+  e.preventDefault()
+
+  createCard()
+})
 startTestButton.addEventListener("click", toggleTestStart)
 flipCardButton.addEventListener("click", flipCurrentTestCard)
 nextCardButton.addEventListener("click", shiftAndDisplayNextCard)

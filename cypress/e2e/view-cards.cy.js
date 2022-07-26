@@ -1,4 +1,4 @@
-describe("Viewing cards", () => {
+describe("Managing a card deck", () => {
   it("Allows card creation and deletion", () => {
     cy.visit("/")
 
@@ -67,5 +67,16 @@ describe("Viewing cards", () => {
     cy.get("#cards li").eq(0).contains("Delete").click()
 
     cy.get("#cards li").should("have.arrayElements", 0)
+  })
+
+  context("Using the keyboard", () => {
+    it("Allows card creation", () => {
+      cy.visit("/")
+
+      cy.getInputForLabel("Front Text").type("What is a cloud?")
+      cy.getInputForLabel("Back Text").type("Water vapour in the sky {enter}")
+
+      cy.contains("Flashcards in deck (1)")
+    })
   })
 })
