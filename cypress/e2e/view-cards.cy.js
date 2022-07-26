@@ -5,7 +5,7 @@ describe("Managing a card deck", () => {
     cy.getInputForLabel("Front Text").type("What is a cloud?")
     cy.getInputForLabel("Back Text").type("Water vapour in the sky")
 
-    cy.contains("Save Card").click()
+    cy.get("#create-card-form").submit()
 
     cy.contains("What is a cloud? - Water vapour in the sky").should(
       "be.hidden"
@@ -32,7 +32,7 @@ describe("Managing a card deck", () => {
     cy.getInputForLabel("Front Text").type("What is a hedgehog?")
     cy.getInputForLabel("Back Text").type("Spiky rodent that lives in hedges")
 
-    cy.contains("Save Card").click()
+    cy.get("#create-card-form").submit()
 
     cy.contains("Flashcards in deck (2)").click()
 
@@ -54,7 +54,7 @@ describe("Managing a card deck", () => {
     cy.getInputForLabel("Front Text").type("What is a bee?")
     cy.getInputForLabel("Back Text").type("Striped insect that loves nectar")
 
-    cy.contains("Save Card").click()
+    cy.get("#create-card-form").submit()
 
     cy.get("#cards li").should(
       "have.arrayElements",
@@ -78,5 +78,15 @@ describe("Managing a card deck", () => {
 
       cy.contains("Flashcards in deck (1)")
     })
+  })
+
+  it("prevents creation of empty cards", () => {
+    cy.visit("/")
+
+    cy.contains("Flashcards in deck (0)")
+
+    cy.get("#create-card-form").submit()
+
+    cy.contains("Flashcards in deck (0)")
   })
 })

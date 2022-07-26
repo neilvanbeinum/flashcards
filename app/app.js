@@ -172,16 +172,27 @@ const toggleCardListVisibility = () => {
   cardsDOMList.hidden = !cardsDOMList.hidden
 }
 
-saveCardButton.addEventListener("click", createCard)
-createCardForm.addEventListener("submit", (e) => {
-  e.preventDefault()
+document.addEventListener(
+  "DOMContentLoaded",
+  function () {
+    createCardForm.addEventListener("submit", (e) => {
+      e.preventDefault()
 
-  createCard()
-})
-startTestButton.addEventListener("click", toggleTestStart)
-flipCardButton.addEventListener("click", flipCurrentTestCard)
-nextCardButton.addEventListener("click", shiftAndDisplayNextCard)
-cardDeckSummaryLink.addEventListener("click", toggleCardListVisibility)
+      createCard()
+    })
 
-updateCardDeckSummaryLink()
-displayCards()
+    saveCardButton.addEventListener("click", (e) => {
+      console.log("save clicked")
+      console.log(e.target)
+    })
+
+    startTestButton.addEventListener("click", toggleTestStart)
+    flipCardButton.addEventListener("click", flipCurrentTestCard)
+    nextCardButton.addEventListener("click", shiftAndDisplayNextCard)
+    cardDeckSummaryLink.addEventListener("click", toggleCardListVisibility)
+
+    updateCardDeckSummaryLink()
+    displayCards()
+  },
+  false
+)
