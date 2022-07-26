@@ -36,7 +36,7 @@ it("Saves cards to localstorage when added", () => {
   cy.getInputForLabel("Front Text").type("What is a cloud?")
   cy.getInputForLabel("Back Text").type("Water vapour in the sky")
 
-  cy.contains("Save Card").click()
+  cy.get("#create-card-form").submit()
 
   cy.window().should((window) => {
     expect(JSON.parse(window.localStorage[STORAGE_KEY])).to.eql([

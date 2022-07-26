@@ -4,22 +4,21 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script type="module" src="app.js"></script>
     <title>Document</title>
   </head>
   <body>
     <form id="create-card-form">
       <div class="form-group">
         <label for="front-text">Front Text</label>
-        <sl-input id="front-text"></sl-input>
+        <sl-input id="front-text" required></sl-input>
       </div>
 
       <div class="form-group">
         <label for="back-text">Back Text</label>
-        <sl-input id="back-text"></sl-input>
+        <sl-input id="back-text" required></sl-input>
       </div>
 
-      <sl-button id="save-btn" variant="primary">Save Card</sl-button>
+      <sl-button id="save-btn" variant="primary" type="submit">Save Card</sl-button>
     </form>
 
     <div class="form-group">
@@ -43,5 +42,7 @@
     <div class="form-group">
       <sl-button id="next-card" disabled>Next Card</sl-button>
     </div>
+
+    <script type="module" src="app.js"></script>
   </body>
 </html>
