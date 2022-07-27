@@ -8,6 +8,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Build
-        run: yarn predeploy
-      - name: Deploy
-        run: yarn deploy
+        run: |
+          yarn install
+          yarn predeploy
+      - name: Deploy with gh-pages
+        run: |
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          yarn run deploy -- -u "github-actions-bot <support+actions@github.com>"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
