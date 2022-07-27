@@ -4,11 +4,16 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --config video=false",
-    "start": "parcel app/index.html -p 3000"
+    "predeploy": "rm -rf dist && parcel build app/index.html --public-url /flashcards_new",
+    "deploy": "gh-pages -d dist",
+    "build": "parcel build --public-url './' app/index.html",
+    "start": "npx http-server dist -p 3000",
+    "dev": "parcel app/index.html -p 3000"
   },
   "devDependencies": {
     "@parcel/transformer-sass": "2.6.2",
-    "cypress": "10.3.1",
+    "cypress": "^10.3.1",
+    "gh-pages": "^4.0.0",
     "parcel": "^2.6.2"
   },
   "dependencies": {
