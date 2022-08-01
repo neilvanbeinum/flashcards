@@ -5,6 +5,8 @@ import "@shoelace-style/shoelace/dist/themes/light.css"
 import "./main.scss"
 
 import { STORAGE_KEY } from "./constants.js"
+import { sanitize } from "dompurify"
+
 let cards = JSON.parse(window.localStorage[STORAGE_KEY] || "[]")
 
 let testCards = []
@@ -26,7 +28,10 @@ const addCard = (frontText, backText) => {
   frontText = frontText?.trim()
   backText = backText?.trim()
 
-  const cardObj = { frontText, backText }
+  const cardObj = {
+    frontText: sanitize(frontText),
+    backText: sanitize(backText),
+  }
 
   Object.entries(cardObj).forEach(([textKey, textValue]) => {
     if (!textValue) {
@@ -82,7 +87,12 @@ const createCard = () => {
   const frontText = document.querySelector("#front-text")
   const backText = document.querySelector("#back-text")
 
-  addCard(frontText.value, backText.value)
+  try {
+    addCard(frontText.value, backText.value)
+  } catch (error) {
+    console.error(`Error adding card: ${error}`)
+  }
+
   saveToLocalStorage()
   displayCards()
 
