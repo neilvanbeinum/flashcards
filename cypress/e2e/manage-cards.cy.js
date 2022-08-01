@@ -80,7 +80,7 @@ describe("Managing a card deck", () => {
     })
   })
 
-  it("prevents creation of empty cards", () => {
+  it("Prevents creation of empty cards", () => {
     cy.visit("/")
 
     cy.contains("Flashcards in deck (0)")
@@ -88,5 +88,22 @@ describe("Managing a card deck", () => {
     cy.get("#create-card-form").submit()
 
     cy.contains("Flashcards in deck (0)")
+  })
+
+  it("Sanitizes dangerous input text", () => {
+    const alertStub = cy.stub()
+
+    cy.on("window:alert", alertStub)
+
+    cy.visit("/")
+
+    cy.getInputForLabel("Front Text").type("<script>alert('hacked');</script>")
+    cy.getInputForLabel("Back Text").type('<img onload="alert(hi);">')
+
+    cy.get("#create-card-form")
+      .submit()
+      .then(() => {
+        expect(alertStub).not.to.be.called
+      })
   })
 })

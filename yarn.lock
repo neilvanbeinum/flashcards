@@ -2021,6 +2021,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dompurify@npm:^2.3.10":
+  version: 2.3.10
+  resolution: "dompurify@npm:2.3.10"
+  checksum: 0d6a24d10db220a2533797ea7ebbafd0f187b614f97f6249742467d2faf8264a448b0396ce5d772d4b1565310ead43b7dbe4e5ac10f8bdb71c18dc5ffe74751d
+  languageName: node
+  linkType: hard
+
 "domutils@npm:^2.8.0":
   version: 2.8.0
   resolution: "domutils@npm:2.8.0"
@@ -2299,6 +2306,7 @@ __metadata:
     "@parcel/transformer-sass": "npm:2.6.2"
     "@shoelace-style/shoelace": "npm:^2.0.0-beta.78"
     cypress: "npm:^10.3.1"
+    dompurify: "npm:^2.3.10"
     gh-pages: "npm:^4.0.0"
     parcel: "npm:^2.6.2"
   languageName: unknown

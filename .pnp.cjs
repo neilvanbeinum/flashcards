@@ -36,6 +36,7 @@ const RAW_RUNTIME_STATE =
           ["@parcel/transformer-sass", "npm:2.6.2"],\
           ["@shoelace-style/shoelace", "npm:2.0.0-beta.78"],\
           ["cypress", "npm:10.3.1"],\
+          ["dompurify", "npm:2.3.10"],\
           ["gh-pages", "npm:4.0.0"],\
           ["parcel", "virtual:6f67d15c5b4f5726f88a4dd26c55aac1a49143a1740919f1a2b6b8a3d8fb12b2b23f131b255e1c9316bb3a563b281ec5e7ba763f1575187e912ab3f755e9a6ac#npm:2.6.2"]\
         ],\
@@ -2487,6 +2488,15 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["dompurify", [\
+      ["npm:2.3.10", {\
+        "packageLocation": "../../.yarn/berry/cache/dompurify-npm-2.3.10-6db07a88c6-9.zip/node_modules/dompurify/",\
+        "packageDependencies": [\
+          ["dompurify", "npm:2.3.10"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["domutils", [\
       ["npm:2.8.0", {\
         "packageLocation": "../../.yarn/berry/cache/domutils-npm-2.8.0-0325139e5c-9.zip/node_modules/domutils/",\
@@ -2804,6 +2814,7 @@ const RAW_RUNTIME_STATE =
           ["@parcel/transformer-sass", "npm:2.6.2"],\
           ["@shoelace-style/shoelace", "npm:2.0.0-beta.78"],\
           ["cypress", "npm:10.3.1"],\
+          ["dompurify", "npm:2.3.10"],\
           ["gh-pages", "npm:4.0.0"],\
           ["parcel", "virtual:6f67d15c5b4f5726f88a4dd26c55aac1a49143a1740919f1a2b6b8a3d8fb12b2b23f131b255e1c9316bb3a563b281ec5e7ba763f1575187e912ab3f755e9a6ac#npm:2.6.2"]\
         ],\
