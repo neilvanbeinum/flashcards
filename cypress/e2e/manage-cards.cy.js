@@ -97,8 +97,12 @@ describe("Managing a card deck", () => {
 
     cy.visit("/")
 
-    cy.getInputForLabel("Front Text").type("<script>alert('hacked');</script>")
-    cy.getInputForLabel("Back Text").type('<img onload="alert(hi);">')
+    cy.getInputForLabel("Front Text").type(
+      "<script>alert('hacked in script tag');</script>"
+    )
+    cy.getInputForLabel("Back Text").type(
+      '<img src="" onerror="alert(\'hacked in img error\');">'
+    )
 
     cy.get("#create-card-form")
       .submit()

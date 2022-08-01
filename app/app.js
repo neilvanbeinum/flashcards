@@ -28,10 +28,7 @@ const addCard = (frontText, backText) => {
   frontText = frontText?.trim()
   backText = backText?.trim()
 
-  const cardObj = {
-    frontText: sanitize(frontText),
-    backText: sanitize(backText),
-  }
+  const cardObj = { frontText, backText }
 
   Object.entries(cardObj).forEach(([textKey, textValue]) => {
     if (!textValue) {
@@ -65,7 +62,9 @@ const displayCards = () => {
     const fragment = document
       .createRange()
       .createContextualFragment(
-        `<li>${card.frontText} - ${card.backText}<sl-button class="delete-card">Delete</sl-button></li>`
+        `<li>${sanitize(card.frontText)} - ${sanitize(
+          card.backText
+        )}<sl-button class="delete-card">Delete</sl-button></li>`
       )
 
     fragment
