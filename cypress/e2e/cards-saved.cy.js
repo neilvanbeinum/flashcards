@@ -33,12 +33,19 @@ it("Saves cards to localstorage when added", () => {
 
   cy.visit("/")
 
-  cy.getInputForLabel("Front Text").type("What is a cloud?")
-  cy.getInputForLabel("Back Text").type("Water vapour in the sky")
+  cy.contains("Add New Card").click()
 
-  cy.get("#create-card-form").submit()
+  cy.getTextAreaForLabel("Front Text").type("What is a cloud?")
+
+  cy.get("form").submit()
+
+  cy.getTextAreaForLabel("Back Text").type("Water vapour in the sky")
+
+  cy.get("form").submit()
 
   cy.window().should((window) => {
+    expect(window.localStorage[STORAGE_KEY]).to.be.a("string").that.is.not.empty
+
     expect(JSON.parse(window.localStorage[STORAGE_KEY])).to.eql([
       {
         frontText: "What is a cloud?",
@@ -62,8 +69,6 @@ it("Saves cards to localstorage when deleted", () => {
   })
 
   cy.visit("/")
-
-  cy.contains("Flashcards in deck (1)").click()
 
   cy.get("#cards li").eq(0).contains("Delete").click()
 
