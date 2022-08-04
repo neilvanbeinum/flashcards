@@ -4,7 +4,7 @@
   "scripts": {
     "cypress:open": "cypress open",
     "cypress:run": "cypress run --config video=false",
-    "predeploy": "rm -rf dist && parcel build app/index.html --public-url /flashcards_new",
+    "predeploy": "rm -rf dist && parcel build app/index.html --public-url /flashcards",
     "deploy": "gh-pages -d dist -u 'NeilvB <github.mfivq@simplelogin.co>'",
     "build": "parcel build --public-url './' app/index.html",
     "start": "npx http-server dist -p 3000",
