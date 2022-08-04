@@ -1,5 +1,39 @@
 body {
   font-family: var(--sl-font-sans);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--sl-color-blue-50);
+}
+
+form {
+  text-align: center;
+}
+
+#cards {
+  text-align: center;
+}
+
+.app-container {
+  width: 100%;
+
+  & > * + * {
+    margin-top: 30px;
+  }
+}
+
+#test-container {
+  text-align: center;
+}
+
+sl-card::part(body) {
+  background-color: var(--sl-color-yellow-50);
+  padding: 120px;
+}
+
+sl-card {
+  box-shadow: var(--sl-shadow-medium);
 }
 
 sl-button {
@@ -8,17 +42,27 @@ sl-button {
 
 sl-button.delete-card {
   width: initial;
+
   margin-left: 20px;
 }
 
-.form-group,
-#test-container {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  text-align: center;
+form {
+  width: 100%;
+
+  & > * + * {
+    margin-top: 30px;
+  }
+
+  label + * {
+    margin-top: 10px;
+  }
+
+  sl-textarea::part(textarea) {
+    text-align: center;
+  }
 }
 
-ul#cards  {
+ul#cards {
   padding: 0;
   list-style: none;
 

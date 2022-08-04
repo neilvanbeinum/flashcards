@@ -6,6 +6,6 @@ Cypress.Commands.add("loadCardsIntoStorage", (cards) => {
   })
 })
 
-Cypress.Commands.add("getInputForLabel", (label) => {
-  return cy.contains("label", label).next().shadow().find("input")
+Cypress.Commands.add("getTextAreaForLabel", (label) => {
+  return cy.contains("label", label).next().shadow().find("textarea")
 })

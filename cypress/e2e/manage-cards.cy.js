@@ -2,92 +2,57 @@ describe("Managing a card deck", () => {
   it("Allows card creation and deletion", () => {
     cy.visit("/")
 
-    cy.getInputForLabel("Front Text").type("What is a cloud?")
-    cy.getInputForLabel("Back Text").type("Water vapour in the sky")
+    cy.contains("Add New Card").click()
 
-    cy.get("#create-card-form").submit()
+    cy.getTextAreaForLabel("Front Text").type("What is a cloud? TYPO")
 
-    cy.contains("What is a cloud? - Water vapour in the sky").should(
-      "be.hidden"
+    cy.get("form").submit()
+
+    cy.getTextAreaForLabel("Back Text").type("Water vapour in the sky")
+
+    cy.contains("a", "Back").click()
+
+    cy.getTextAreaForLabel("Front Text")
+      .clear()
+      .type("What is a cloud?", { force: true })
+
+    cy.get("form").submit()
+
+    cy.getTextAreaForLabel("Back Text").should(
+      "have.value",
+      "Water vapour in the sky"
     )
 
-    cy.contains("Flashcards in deck (1)").click()
+    cy.get("form").submit()
 
-    cy.contains("What is a cloud? - Water vapour in the sky").should(
-      "be.visible"
+    cy.contains("#cards li", "What is a cloud?")
+
+    cy.contains("Add New Card").click()
+
+    cy.getTextAreaForLabel("Front Text").type("What is a hedgehog?")
+
+    cy.get("form").submit()
+
+    cy.getTextAreaForLabel("Back Text").type(
+      "Spiky rodent that lives in hedges"
     )
 
-    cy.get("#cards li").should(
-      "have.arrayElements",
-      1,
-      "What is a cloud? - Water vapour in the sky"
-    )
+    cy.get("form").submit()
 
-    cy.contains("Flashcards in deck (1)").click()
-
-    cy.contains("What is a cloud? - Water vapour in the sky").should(
-      "be.hidden"
-    )
-
-    cy.getInputForLabel("Front Text").type("What is a hedgehog?")
-    cy.getInputForLabel("Back Text").type("Spiky rodent that lives in hedges")
-
-    cy.get("#create-card-form").submit()
-
-    cy.contains("Flashcards in deck (2)").click()
-
-    cy.get("#cards li").should(
-      "have.arrayElements",
-      2,
-      "What is a cloud? - Water vapour in the sky",
-      "What is a hedgehog? - Spiky rodent that lives in hedges"
-    )
-
-    cy.get("#cards li").eq(0).contains("Delete").click()
-
-    cy.get("#cards li").should(
-      "have.arrayElements",
-      1,
-      "What is a hedgehog? - Spiky rodent that lives in hedges"
-    )
-
-    cy.getInputForLabel("Front Text").type("What is a bee?")
-    cy.getInputForLabel("Back Text").type("Striped insect that loves nectar")
-
-    cy.get("#create-card-form").submit()
-
-    cy.get("#cards li").should(
-      "have.arrayElements",
-      2,
-      "What is a hedgehog? - Spiky rodent that lives in hedges",
-      "What is a bee? - Striped insect that loves nectar"
-    )
-
-    cy.get("#cards li").eq(0).contains("Delete").click()
-    cy.get("#cards li").eq(0).contains("Delete").click()
-
-    cy.get("#cards li").should("have.arrayElements", 0)
-  })
-
-  context("Using the keyboard", () => {
-    it("Allows card creation", () => {
-      cy.visit("/")
-
-      cy.getInputForLabel("Front Text").type("What is a cloud?")
-      cy.getInputForLabel("Back Text").type("Water vapour in the sky {enter}")
-
-      cy.contains("Flashcards in deck (1)")
-    })
+    cy.contains("#cards li", "What is a cloud?")
+    cy.contains("#cards li", "What is a hedgehog?")
   })
 
   it("Prevents creation of empty cards", () => {
     cy.visit("/")
 
-    cy.contains("Flashcards in deck (0)")
+    cy.contains("Add New Card").click()
 
-    cy.get("#create-card-form").submit()
+    cy.get("form").submit()
 
-    cy.contains("Flashcards in deck (0)")
+    cy.contains("Front Text")
+
+    cy.contains("Create").should("not.exist")
   })
 
   it("Sanitizes dangerous input text", () => {
@@ -97,14 +62,19 @@ describe("Managing a card deck", () => {
 
     cy.visit("/")
 
-    cy.getInputForLabel("Front Text").type(
-      "<script>alert('hacked in script tag');</script>"
+    cy.contains("Add New Card").click()
+
+    cy.getTextAreaForLabel("Front Text").type(
+      "Hello <script>alert('hacked in script tag');</script>"
     )
-    cy.getInputForLabel("Back Text").type(
+
+    cy.get("form").submit()
+
+    cy.getTextAreaForLabel("Back Text").type(
       '<img src="" onerror="alert(\'hacked in img error\');">'
     )
 
-    cy.get("#create-card-form")
+    cy.get("form")
       .submit()
       .then(() => {
         expect(alertStub).not.to.be.called
