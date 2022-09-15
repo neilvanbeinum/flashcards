@@ -10,33 +10,19 @@ import "./main.scss"
 import { serialize } from "@shoelace-style/shoelace/dist/utilities/form.js"
 
 import { sanitize } from "dompurify"
-import { Card } from "./card"
-import { STORAGE_KEY } from "./constants"
-
-Card.cards = JSON.parse(window.localStorage[STORAGE_KEY] || "[]")
+import Card from "./card"
 
 let testCards = []
-let testInProgress = false
 let currentTestCard
 
 let cardToCreate = {}
-
-const removeCardAt = (index) => {
-  return () => {
-    Card.cards = [...Card.cards.slice(0, index), ...Card.cards.slice(index + 1)]
-
-    saveAllCards()
-
-    displayCards()
-  }
-}
 
 const toggleStartButtonEnabled = (isOn) => {
   document.querySelector("#start-test").disabled = !isOn
 }
 
 const displayCards = () => {
-  const cardFragments = Card.cards.map((card, index) => {
+  const cardFragments = Card.all().map((card) => {
     const fragment = document
       .createRange()
       .createContextualFragment(
@@ -47,7 +33,10 @@ const displayCards = () => {
 
     fragment
       .querySelector("sl-button.delete-card")
-      .addEventListener("click", removeCardAt(index))
+      .addEventListener("click", () => {
+        card.delete()
+        displayCards()
+      })
 
     return fragment
   })
@@ -57,7 +46,7 @@ const displayCards = () => {
   cardsDOMList.innerHTML = ""
   cardsDOMList.append(...cardFragments)
 
-  toggleStartButtonEnabled(Card.cards.length > 0)
+  toggleStartButtonEnabled(Card.all().length > 0)
 }
 
 const displayCardText = (text) => {
@@ -83,12 +72,6 @@ const shiftAndDisplayNextCard = () => {
   }
 }
 
-const toggleCardListDisabled = (isDisabled) => {
-  document
-    .querySelectorAll(".delete-card")
-    .forEach((button) => (button.disabled = isDisabled))
-}
-
 const flipCurrentTestCard = () => {
   displayCardText(currentTestCard.nextFaceText())
 }
@@ -108,10 +91,6 @@ class CardTestPresenter {
 
     return text
   }
-}
-
-const updateCardDeckSummaryLink = () => {
-  cardDeckSummaryLink.innerText = `Flashcards in deck (${Card.cards.length})`
 }
 
 const renderStepOne = () => {
@@ -186,9 +165,8 @@ const renderStepTwo = () => {
 
       try {
         const card = new Card({ ...cardToCreate })
-        Card.updateAll([...Card.cards, card])
 
-        saveAllCards()
+        card.save()
       } catch (error) {
         console.log(`Unable to create card: ${error}`)
       }
@@ -234,7 +212,7 @@ const renderIndex = () => {
 }
 
 const renderTest = () => {
-  testCards = structuredClone(Card.cards)
+  testCards = structuredClone(Card.all())
 
   document.querySelector(".app-container").innerHTML = `
     <a id="back-link" href="#">Back</a>
@@ -274,7 +252,3 @@ const onRouteChange = (newRoute) => {
 }
 
 renderIndex()
-
-const saveAllCards = () => {
-  window.localStorage[STORAGE_KEY] = JSON.stringify(Card.cards)
-}
