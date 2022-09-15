@@ -61,6 +61,7 @@ it("Saves cards to localstorage when deleted", () => {
     {
       frontText: "frontText1",
       backText: "backText1",
+      createdAt: Date.now(),
     },
   ]
 

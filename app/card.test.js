@@ -1,49 +1,23 @@
-import { Card } from "./card"
+import Card from "./card"
+import Storage from "./storage"
+
+jest.mock("./storage")
 
 describe("Card Model", () => {
   describe(".all", () => {
-    beforeEach(() => {
-      Card.cards = [
-        {
-          frontText: "front1",
-          backText: "back1",
-        },
-        {
-          frontText: "front2",
-          backText: "back2",
-        },
-      ]
-    })
+    it("makes a call to storage to fetch all cards", () => {
+      Storage.getRecords = jest.fn(() => [
+        { frontText: "frontText", backText: "backText" },
+      ])
 
-    it("retrieves all cards", () => {
       expect(Card.all()).toEqual([
-        {
-          frontText: "front1",
-          backText: "back1",
-        },
-        {
-          frontText: "front2",
-          backText: "back2",
-        },
-      ])
-    })
-  })
-
-  describe(".create", () => {
-    it("calls the storage update method", () => {
-      Card.updateAll([
-        {
-          frontText: "front1",
-          backText: "back1",
-        },
+        expect.objectContaining({
+          frontText: "frontText",
+          backText: "backText",
+        }),
       ])
 
-      expect(Card.cards).toEqual([
-        {
-          frontText: "front1",
-          backText: "back1",
-        },
-      ])
+      expect(Storage.getRecords).toHaveBeenCalled()
     })
   })
 
@@ -57,22 +31,34 @@ describe("Card Model", () => {
         new Card({ frontText: "text", backText: "" })
       }).toThrow("backText - value required")
     })
+
+    it("instantiates a Card with the supplied fields", () => {
+      const card = new Card({ frontText: "frontText", backText: "backText" })
+
+      expect(card.frontText).toEqual("frontText")
+      expect(card.backText).toEqual("backText")
+    })
   })
 
   describe("save", () => {
-    it("saves to Cards", () => {
+    it("makes a call to storage to save the card", () => {
       const card = new Card({ frontText: "frontText", backText: "backText" })
 
       card.save()
 
-      expect(Card.cards).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            frontText: "frontText",
-            backText: "backText",
-          }),
-        ])
-      )
+      expect(Storage.createRecord).toHaveBeenCalledWith(card)
+    })
+  })
+
+  describe("delete", () => {
+    it("makes a call to storage to delete the card", () => {
+      const card = new Card({ frontText: "frontText", backText: "backText" })
+
+      card.save()
+
+      card.delete()
+
+      expect(Storage.deleteRecord).toHaveBeenCalledWith(card)
     })
   })
 })

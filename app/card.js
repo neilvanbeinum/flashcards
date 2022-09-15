@@ -1,15 +1,11 @@
-export class Card {
-  static cards = []
+import CardStorage from "./storage"
 
+export default class Card {
   static all() {
-    return this.cards
+    return CardStorage.getRecords().map((record) => new Card(record))
   }
 
-  static updateAll(newCards) {
-    this.cards = newCards
-  }
-
-  constructor({ frontText, backText }) {
+  constructor({ frontText, backText, createdAt = Date.now() } = {}) {
     frontText = frontText?.trim()
     backText = backText?.trim()
 
@@ -23,10 +19,14 @@ export class Card {
 
     this.frontText = frontText
     this.backText = backText
-    this.createdAt = Date.now()
+    this.createdAt = createdAt
   }
 
   save() {
-    Card.cards = [...Card.cards, { ...this, createdAt: new Date() }]
+    CardStorage.createRecord(this)
+  }
+
+  delete() {
+    CardStorage.deleteRecord(this)
   }
 }

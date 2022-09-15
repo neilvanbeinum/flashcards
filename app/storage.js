@@ -1,15 +1,38 @@
-import { STORAGE_KEY } from "./constants.js"
+const STORAGE_KEY = "cards"
 
-let records = JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]")
+export default class CardStorage {
+  static records = []
 
-const storage = {
-  getRecords: () => {
-    return records
-  },
+  static getRecords() {
+    this.records = JSON.parse(
+      localStorage.getItem(STORAGE_KEY) || JSON.stringify([])
+    )
 
-  updateRecords(updatedRecords) {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(updatedRecords))
-  },
+    return this.records
+  }
+
+  static deleteRecord(record) {
+    const recordToDelete = this.records.find(
+      (r) => r.createdAt === record.createdAt
+    )
+
+    const recordIndex = this.records.indexOf(recordToDelete)
+
+    if (recordIndex < 0) {
+      throw "Cannot delete a record which does not exist"
+    }
+
+    this.records = [
+      ...this.records.slice(0, recordIndex),
+      ...this.records.slice(recordIndex + 1),
+    ]
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.records))
+  }
+
+  static createRecord(record) {
+    this.records = [...this.records, record]
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.records))
+  }
 }
-
-export default storage
