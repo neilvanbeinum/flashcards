@@ -1,0 +1,14 @@
+<div class="app-container">
+  <div>
+    <%= link_to "Back", deck_path, id: "back-link" %>
+  </div>
+
+  <%= form_with url: false, id: "new-card-form" do |form| %>
+    <div class="form-group">
+      <%= form.label :front_text, "Front Text" %>
+      <%= form.text_area :front_text, required: true %>
+    </div>
+
+    <%= form.submit "Next" %>
+  <% end %>
+</div>

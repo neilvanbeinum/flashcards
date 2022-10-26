@@ -2,7 +2,7 @@ describe("Card Test", () => {
   it("Cannot start a test if no cards have been made", () => {
     cy.visit("/")
 
-    cy.contains("Start Test").shadow().find("button").should("be.disabled")
+    cy.contains("a", "Start Test").should("not.exist")
   })
 
   it("Presents a test with all cards", () => {
@@ -21,26 +21,26 @@ describe("Card Test", () => {
 
     cy.visit("/")
 
-    cy.contains("Start Test").click()
+    cy.contains("button", "Start Test").click()
 
     cy.get("div#test-container").contains("front1")
 
-    cy.contains("Flip Card").click()
+    cy.contains("button", "Flip Card").click()
 
     cy.get("div#test-container").contains("back1")
 
-    cy.contains("Flip Card").click()
+    cy.contains("button", "Flip Card").click()
 
     cy.get("div#test-container").contains("front1")
 
-    cy.contains("Next Card").click()
+    cy.contains("button", "Next Card").click()
 
     cy.get("div#test-container").contains("front2")
 
-    cy.contains("Flip Card").click()
+    cy.contains("button", "Flip Card").click()
 
     cy.get("div#test-container").contains("back2")
 
-    cy.contains("End Test").click()
+    cy.contains("button", "End Test").click()
   })
 })
