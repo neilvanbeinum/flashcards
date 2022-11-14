@@ -1,7 +1,7 @@
 import "@hotwired/turbo-rails"
 
 import DOMPurify from "dompurify"
-import Card from "./card"
+import Card from "card"
 
 let testCards = []
 let currentTestCard

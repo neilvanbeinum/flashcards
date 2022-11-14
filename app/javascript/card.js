@@ -1,4 +1,4 @@
-import CardStorage from "./storage"
+import CardStorage from "storage"
 
 export default class Card {
   static all() {
