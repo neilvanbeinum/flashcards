@@ -51,3 +51,15 @@ const arrayElements = (_chai, utils) => {
 
 // registers our assertion function "isFoo" with Chai
 chai.use(arrayElements)
+
+Cypress.on("uncaught:exception", (err, runnable) => {
+  if (err.message.match(/Error resolving module specifier “application”/)) {
+    return false
+  }
+})
+
+// Cypress.on("uncaught:exception", (err, runnable) => {
+//   // returning false here prevents Cypress from
+//   // failing the test
+//   return false;
+// });

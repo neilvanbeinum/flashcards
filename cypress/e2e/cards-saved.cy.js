@@ -1,4 +1,4 @@
-import { STORAGE_KEY } from "../../app/constants"
+import { STORAGE_KEY } from "../../app/javascript/constants"
 
 it("Displays cards from localstorage on loading", () => {
   const cards = [
@@ -27,21 +27,20 @@ it("Displays cards from localstorage on loading", () => {
 })
 
 it("Saves cards to localstorage when added", () => {
+  cy.visit("/")
+
+  cy.contains("a", "Add New Card").click()
+
+  cy.getTextAreaForLabel("Front Text").type("What is a cloud?")
+  cy.contains('input[type="submit"]', "Next").click()
+
+  cy.getTextAreaForLabel("Back Text").type("Water vapour in the sky")
+
   const now = Date.now()
 
   cy.clock(now)
 
-  cy.visit("/")
-
-  cy.contains("Add New Card").click()
-
-  cy.getTextAreaForLabel("Front Text").type("What is a cloud?")
-
-  cy.get("form").submit()
-
-  cy.getTextAreaForLabel("Back Text").type("Water vapour in the sky")
-
-  cy.get("form").submit()
+  cy.contains('input[type="submit"]', "Create").click()
 
   cy.window().should((window) => {
     expect(window.localStorage[STORAGE_KEY]).to.be.a("string").that.is.not.empty
