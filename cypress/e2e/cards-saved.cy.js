@@ -16,7 +16,7 @@ it("Displays cards from localstorage on loading", () => {
     window.localStorage[STORAGE_KEY] = JSON.stringify(cards)
   })
 
-  cy.visit("/")
+  cy.login()
 
   cy.get("#cards li").should(
     "have.arrayElements",
@@ -27,7 +27,7 @@ it("Displays cards from localstorage on loading", () => {
 })
 
 it("Saves cards to localstorage when added", () => {
-  cy.visit("/")
+  cy.login()
 
   cy.contains("a", "Add New Card").click()
 
@@ -68,7 +68,7 @@ it("Saves cards to localstorage when deleted", () => {
     window.localStorage[STORAGE_KEY] = JSON.stringify(cards)
   })
 
-  cy.visit("/")
+  cy.login()
 
   cy.get("#cards li").eq(0).contains("Delete").click()
 

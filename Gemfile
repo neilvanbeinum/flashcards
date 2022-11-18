@@ -36,3 +36,5 @@ gem "importmap-rails", "~> 1.1"
 gem "turbo-rails"
 
 gem "sass-rails", "~> 6.0"
+
+gem "rodauth-rails", "~> 1.6"

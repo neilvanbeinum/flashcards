@@ -13,3 +13,12 @@ Cypress.Commands.add("getTextAreaForLabel", (label) => {
     return cy.get(`#${labelFor}`)
   })
 })
+
+Cypress.Commands.add("login", () => {
+  cy.visit("/")
+
+  cy.get('input[name="login"]').type("freddie@queen.com")
+  cy.get('input[name="password"]').type("password")
+
+  cy.contains('input[type="submit"]', "Login").click()
+})

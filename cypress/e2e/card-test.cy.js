@@ -1,6 +1,6 @@
 describe("Card Test", () => {
   it("Cannot start a test if no cards have been made", () => {
-    cy.visit("/")
+    cy.login()
 
     cy.contains("a", "Start Test").should("not.exist")
   })
@@ -19,7 +19,7 @@ describe("Card Test", () => {
 
     cy.loadCardsIntoStorage(cards)
 
-    cy.visit("/")
+    cy.login()
 
     cy.contains("button", "Start Test").click()
 

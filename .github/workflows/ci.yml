@@ -6,6 +6,20 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -15,11 +29,27 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Install stuff
+      - name: Install packages and gems
         run: |
           bundle install
           yarn; yarn install
+      - name: Install PostgreSQL client
+        run: |
+          sudo apt-get -yqq install libpq-dev
+      - name: Build App
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          RAILS_ENV: test
+        run: |
+          bin/rails db:setup
       - name: Run Cypress
+        env:
+          PGHOST: localhost
+          PGUSER: postgres
+          PGPASSWORD: postgres
+          RAILS_ENV: test
         run: bundle exec rake cypress:run
       - name: Run Jest
         run: yarn test

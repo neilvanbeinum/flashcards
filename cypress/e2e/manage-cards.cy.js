@@ -1,6 +1,6 @@
 describe("Managing a card deck", () => {
   it("Allows card creation and deletion", () => {
-    cy.visit("/")
+    cy.login()
 
     cy.contains("a", "Add New Card").click()
 
@@ -45,7 +45,7 @@ describe("Managing a card deck", () => {
   })
 
   it("Prevents creation of empty cards", () => {
-    cy.visit("/")
+    cy.login()
 
     cy.contains("a", "Add New Card").click()
 
@@ -65,7 +65,7 @@ describe("Managing a card deck", () => {
 
     cy.on("window:alert", alertStub)
 
-    cy.visit("/")
+    cy.login()
 
     cy.contains("Add New Card").click()
 
