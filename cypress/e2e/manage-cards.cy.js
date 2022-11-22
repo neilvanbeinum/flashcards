@@ -5,11 +5,12 @@ describe("Managing a card deck", () => {
     cy.contains("a", "Add New Card").click()
 
     cy.getTextAreaForLabel("Front Text").type("What is a cloud? TYPO")
+
     cy.contains('input[type="submit"]', "Next").click()
 
-    cy.getTextAreaForLabel("Back Text").type("Water vapour in the sky")
+    cy.contains("label", "Back Text")
 
-    cy.contains("a", "Back").click()
+    cy.go("back")
 
     cy.getTextAreaForLabel("Front Text").clear({ force: true })
 
@@ -19,10 +20,7 @@ describe("Managing a card deck", () => {
 
     cy.contains('input[type="submit"]', "Next").click()
 
-    cy.getTextAreaForLabel("Back Text").should(
-      "have.value",
-      "Water vapour in the sky"
-    )
+    cy.getTextAreaForLabel("Back Text").type("Water vapour in the sky")
 
     cy.contains('input[type="submit"]', "Create").click()
 

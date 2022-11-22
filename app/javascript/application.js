@@ -17,13 +17,13 @@ const displayCards = (cardsDOMList) => {
     const fragment = document
       .createRange()
       .createContextualFragment(
-        `<li>${DOMPurify.sanitize(card.frontText)} - ${DOMPurify.sanitize(
+        `<li><div>${DOMPurify.sanitize(card.frontText)} - ${DOMPurify.sanitize(
           card.backText
-        )}<sl-button name="trash" label="Delete card" class="delete-card" size="small" pill variant="danger" outline>Delete</sl-button></li>`
+        )}</div><div><button class="delete-card">Delete</button></div></li>`
       )
 
     fragment
-      .querySelector("sl-button.delete-card")
+      .querySelector("button.delete-card")
       .addEventListener("click", () => {
         card.delete()
         displayCards(cardsDOMList)
@@ -47,9 +47,7 @@ const displayCards = (cardsDOMList) => {
 }
 
 const displayCardText = (text) => {
-  document.querySelector(
-    "#test-container"
-  ).innerHTML = `<sl-card>${text}</sl-card>`
+  document.querySelector("#test-container").innerHTML = text
 }
 
 const shiftAndDisplayNextCard = () => {
@@ -130,13 +128,6 @@ const renderStepTwo = (cardForm) => {
       Turbo.visit("/deck")
     } catch (error) {
       console.error(`Unable to create card: ${error}`)
-    }
-  })
-
-  document.querySelector("#back-link").addEventListener("click", () => {
-    cardToCreate = {
-      ...cardToCreate,
-      backText: document.querySelector("#back_text").value,
     }
   })
 }

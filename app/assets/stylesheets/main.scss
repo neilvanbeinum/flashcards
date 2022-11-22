@@ -1,76 +1,96 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
-  font-family: var(--sl-font-sans);
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-size: 16px;
+  background-color: #efefdd;
+}
+
+.alert {
+  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-color: var(--sl-color-blue-50);
 }
 
-form {
-  text-align: center;
+.alert-success {
+  border: 1px solid green;
+}
+
+.alert-danger {
+  border: 1px solid red;
+}
+
+.main {
+  width: 500px;
+  margin: 4rem auto;
+}
+
+@media (max-width: 500px) {
+  .main { width: 100%; }
+}
+
+form,
+button,
+input,
+textarea {
+  width: 100%;
+}
+
+button.delete-card {
+  width: initial;
+}
+
+form label,
+form textarea {
+  display: block;
+}
+
+button,
+input[type="submit"],
+input,
+textarea {
+  font-size: 1rem;
 }
 
 #cards {
-  text-align: center;
+  padding: 0;
 }
 
-.app-container {
-  width: 100%;
+#cards > * + * {
+  margin-top: 1rem;
+}
 
-  & > * + * {
-    margin-top: 30px;
-  }
+#cards > li {
+  display: flex;
+  justify-content: space-between;
+}
+
+input[type="submit"] {
+  margin-top: 3rem;
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+  align-items: center;
+}
+
+.controls > * {
+  display: block;
+}
+
+.controls > * + * {
+  margin-top: 2rem;
 }
 
 #test-container {
+  width: 100%;
   text-align: center;
-}
-
-sl-card::part(body) {
-  background-color: var(--sl-color-yellow-50);
-  padding: 120px;
-}
-
-sl-card {
-  box-shadow: var(--sl-shadow-medium);
-}
-
-sl-button {
-  width: 100%;
-}
-
-sl-button.delete-card {
-  width: initial;
-
-  margin-left: 20px;
-}
-
-form {
-  width: 100%;
-
-  & > * + * {
-    margin-top: 30px;
-  }
-
-  label + * {
-    margin-top: 10px;
-  }
-
-  sl-textarea::part(textarea) {
-    text-align: center;
-  }
-}
-
-ul#cards {
-  padding: 0;
-  list-style: none;
-
-  li + li {
-    margin-top: 20px;
-  }
-}
-
-sl-card {
-  width: 100%;
+  padding: 100px 0;
+  background-color: gainsboro;
+  box-shadow: 4px 4px 2px gray;
 }
