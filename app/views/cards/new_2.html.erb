@@ -1,14 +1,8 @@
-<div class="app-container">
-  <div>
-    <%= link_to "Back", new_deck_cards_path, id: "back-link" %>
-  </div>
+<h1>Add Card</h1>
 
-  <%= form_with url: false, id: "new-2-card-form" do |form| %>
-    <div class="form-group">
-      <%= form.label :back_text, "Back Text" %>
-      <%= form.text_area :back_text %>
-    </div>
+<%= form_with url: false, id: "new-2-card-form" do |form| %>
+  <%= form.label :back_text, "Back Text" %>
+  <%= form.text_area :back_text, required: true  %>
 
-    <%= form.submit "Create" %>
-  <% end %>
-</div>
+  <%= form.submit "Create" %>
+<% end %>
