@@ -1,0 +1,9 @@
+card_one:
+  account: two
+  front_text: <%= "front_text_one" %>
+  back_text: <%= "back_text_one" %>
+
+card_two:
+  account: two
+  front_text: <%= "front_text_two" %>
+  back_text: <%= "back_text_two" %>

@@ -1,11 +1,9 @@
-import CardStorage from "storage"
-
 export default class Card {
-  static all() {
-    return CardStorage.getRecords().map((record) => new Card(record))
-  }
-
-  constructor({ frontText, backText, createdAt = Date.now() } = {}) {
+  constructor({
+    front_text: frontText,
+    back_text: backText,
+    created_at: createdAt = Date.now(),
+  } = {}) {
     frontText = frontText?.trim()
     backText = backText?.trim()
 
@@ -20,13 +18,5 @@ export default class Card {
     this.frontText = frontText
     this.backText = backText
     this.createdAt = createdAt
-  }
-
-  save() {
-    CardStorage.createRecord(this)
-  }
-
-  delete() {
-    CardStorage.deleteRecord(this)
   }
 }

@@ -69,7 +69,7 @@ textarea {
   align-items: center;
 }
 
-input[type="submit"] {
+textarea + input[type="submit"] {
   margin-top: 3rem;
 }
 

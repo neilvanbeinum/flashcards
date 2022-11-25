@@ -1,46 +1,28 @@
 describe("Card Test", () => {
   it("Cannot start a test if no cards have been made", () => {
-    cy.login()
+    cy.login("freddie@queen.com", "password")
 
     cy.contains("a", "Start Test").should("not.exist")
   })
 
   it("Presents a test with all cards", () => {
-    const cards = [
-      {
-        frontText: "front1",
-        backText: "back1",
-      },
-      {
-        frontText: "front2",
-        backText: "back2",
-      },
-    ]
-
-    cy.loadCardsIntoStorage(cards)
-
-    cy.login()
+    cy.login("brian@queen.com", "password")
 
     cy.contains("button", "Start Test").click()
 
-    cy.get("div#test-container").contains("front1")
-
+    cy.get("div#test-container").contains("front_text_one")
     cy.contains("button", "Flip Card").click()
 
-    cy.get("div#test-container").contains("back1")
-
+    cy.get("div#test-container").contains("back_text_one")
     cy.contains("button", "Flip Card").click()
 
-    cy.get("div#test-container").contains("front1")
-
+    cy.get("div#test-container").contains("front_text_one")
     cy.contains("button", "Next Card").click()
 
-    cy.get("div#test-container").contains("front2")
-
+    cy.get("div#test-container").contains("front_text_two")
     cy.contains("button", "Flip Card").click()
 
-    cy.get("div#test-container").contains("back2")
-
+    cy.get("div#test-container").contains("back_text_two")
     cy.contains("button", "End Test").click()
   })
 })

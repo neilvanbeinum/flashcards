@@ -1,6 +1,5 @@
 import "@hotwired/turbo-rails"
 
-import DOMPurify from "dompurify"
 import Card from "card"
 
 let testCards = []
@@ -8,35 +7,7 @@ let currentTestCard
 
 let cardToCreate = {}
 
-const toggleStartButtonEnabled = (isOn) => {
-  document.querySelector("#start-test").disabled = !isOn
-}
-
-const displayCards = (cardsDOMList) => {
-  const cardFragments = Card.all().map((card) => {
-    const fragment = document
-      .createRange()
-      .createContextualFragment(
-        `<li><div>${DOMPurify.sanitize(card.frontText)} - ${DOMPurify.sanitize(
-          card.backText
-        )}</div><div><button class="delete-card">Delete</button></div></li>`
-      )
-
-    fragment
-      .querySelector("button.delete-card")
-      .addEventListener("click", () => {
-        card.delete()
-        displayCards(cardsDOMList)
-      })
-
-    return fragment
-  })
-
-  cardsDOMList.innerHTML = ""
-  cardsDOMList.append(...cardFragments)
-
-  toggleStartButtonEnabled(Card.all().length > 0)
-
+const displayCards = () => {
   document.querySelector("#add-new-card").addEventListener("click", () => {
     cardToCreate = {}
   })
@@ -106,51 +77,34 @@ const renderStepOne = (cardForm) => {
   })
 }
 
-const renderStepTwo = (cardForm) => {
-  document.querySelector("#back_text").value = cardToCreate.backText || ""
-
-  cardForm.addEventListener("turbo:submit-start", (e) => {
-    e.detail.formSubmission.stop()
-
-    const form = document.querySelector("form")
-    const data = new FormData(form)
-
-    cardToCreate = {
-      ...cardToCreate,
-      backText: data.get("back_text"),
-    }
-
-    try {
-      const card = new Card({ ...cardToCreate })
-
-      card.save()
-
-      Turbo.visit("/deck")
-    } catch (error) {
-      console.error(`Unable to create card: ${error}`)
-    }
-  })
+const renderStepTwo = () => {
+  document.querySelector("#card_front_text").value = cardToCreate.frontText
 }
 
 const renderTest = () => {
-  testCards = structuredClone(Card.all())
+  fetch("/deck.json")
+    .then((response) => response.json())
+    .then((json) => {
+      testCards = json.map((cardJSON) => new Card(cardJSON))
 
-  document
-    .querySelector("#flip-card")
-    .addEventListener("click", flipCurrentTestCard)
+      document
+        .querySelector("#flip-card")
+        .addEventListener("click", flipCurrentTestCard)
 
-  document
-    .querySelector("#next-card")
-    .addEventListener("click", shiftAndDisplayNextCard)
+      document
+        .querySelector("#next-card")
+        .addEventListener("click", shiftAndDisplayNextCard)
 
-  shiftAndDisplayNextCard()
+      shiftAndDisplayNextCard()
+    })
+    .catch((e) => console.error(`Could not fetch cards - ${e}`))
 }
 
 document.addEventListener("turbo:load", () => {
-  const cardsDOMList = document.querySelector("#cards")
+  const cardList = document.querySelector("#cards")
 
-  if (cardsDOMList) {
-    displayCards(cardsDOMList)
+  if (cardList) {
+    displayCards()
   }
 
   const cardForm = document.querySelector("#new-card-form")
@@ -162,7 +116,7 @@ document.addEventListener("turbo:load", () => {
   const cardNew2Form = document.querySelector("#new-2-card-form")
 
   if (cardNew2Form) {
-    renderStepTwo(cardNew2Form)
+    renderStepTwo()
   }
 
   const testContainer = document.querySelector("#test-container")

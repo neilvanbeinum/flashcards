@@ -1,0 +1,9 @@
+<div>
+  <%= "#{card.front_text} - #{card.back_text}" %>
+</div>
+
+<div>
+  <%= form_with model: [:deck, card], method: :delete do |f| %>
+    <%= f.submit "Delete", class: "delete-card" %>
+  <% end %>
+</div>

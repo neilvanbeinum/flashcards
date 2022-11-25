@@ -1,8 +1,16 @@
 <h1>My Deck</h1>
 
-<ul id="cards"></ul>
+<% if @cards.length == 0 %>
+  <p>You don't have any cards yet</p>
+<% else %>
+  <ul id="cards">
+    <% @cards.each do |card| %>
+      <li><%= render card %></li>
+    <% end %>
+  </ul>
+<% end %>
 
 <div class="controls">
-  <a href=<%= new_deck_cards_path %> id="add-new-card">Add New Card</a>
-  <button type="button" id="start-test">Start Test</button>
+  <a href=<%= new_deck_card_path %> id="add-new-card">Add New Card</a>
+  <%= button_tag "Start Test", id: "start-test", disabled: @cards.none? %>
 </div>

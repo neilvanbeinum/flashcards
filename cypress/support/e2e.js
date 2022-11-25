@@ -63,3 +63,7 @@ Cypress.on("uncaught:exception", (err, runnable) => {
 //   // failing the test
 //   return false;
 // });
+
+beforeEach(() => {
+  cy.request("/cypress_rails_reset_state")
+})
