@@ -38,3 +38,10 @@ gem "turbo-rails"
 gem "sass-rails", "~> 6.0"
 
 gem "rodauth-rails", "~> 1.6"
+
+group :test do
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "webdrivers"
+end

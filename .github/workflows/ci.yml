@@ -41,12 +41,11 @@ jobs:
           RAILS_ENV: test
         run: |
           bin/rails db:setup
-      - name: Run Cypress
+      - name: Run tests
         env:
           PGHOST: localhost
           PGUSER: postgres
           PGPASSWORD: postgres
           RAILS_ENV: test
-        run: bundle exec rake cypress:run
-      # - name: Run Jest
-      #   run: yarn test
+          CI: true
+        run: bundle exec rails test:all

@@ -7,3 +7,8 @@ card_two:
   account: two
   front_text: <%= "front_text_two" %>
   back_text: <%= "back_text_two" %>
+
+card_with_signpost:
+  account: three
+  front_text: <%= "card_with_signpost_one" %>
+  back_text: <%= "card_with_signpost_two" %>
