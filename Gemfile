@@ -28,9 +28,6 @@ group :development do
   # gem "spring"
 end
 
-
-gem "cypress-rails", "~> 0.5.5", :groups => [:development, :test]
-
 gem "importmap-rails", "~> 1.1"
 
 gem "turbo-rails"

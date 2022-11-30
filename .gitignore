@@ -24,9 +24,6 @@
 
 .yarn
 /node_modules
-.parcel-cache
-cypress/videos/
-cypress/screenshots/
 
 /dist/*
 
