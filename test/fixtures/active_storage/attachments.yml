@@ -1,4 +1,4 @@
-first_signpost_attachment:
-  name: signpost
-  record: card_with_signpost (Card)
-  blob: first_signpost_blob
+first_image_attachment:
+  name: image
+  record: signpost_one (Signpost)
+  blob: first_image_blob

@@ -3,6 +3,7 @@ export default class Card {
     front_text: frontText,
     back_text: backText,
     created_at: createdAt = Date.now(),
+    signpost_url: signpostUrl,
   } = {}) {
     frontText = frontText?.trim()
     backText = backText?.trim()
@@ -18,5 +19,6 @@ export default class Card {
     this.frontText = frontText
     this.backText = backText
     this.createdAt = createdAt
+    this.signpostUrl = signpostUrl
   }
 }

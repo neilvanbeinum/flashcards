@@ -27,7 +27,11 @@
 
 /dist/*
 
+.env*.local
+
 /public/assets
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+storage

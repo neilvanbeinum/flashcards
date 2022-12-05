@@ -1,1 +1,1 @@
-first_signpost_blob: <%= ActiveStorage::FixtureSet.blob filename: "first.jpg" %>
+first_image_blob: <%= ActiveStorage::FixtureSet.blob filename: "cloud.jpg" %>
