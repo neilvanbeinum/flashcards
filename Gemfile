@@ -3,6 +3,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby "3.1.2"
 
+gem 'dotenv-rails', groups: [:development, :test]
+
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.4"
 
@@ -28,9 +30,6 @@ group :development do
   # gem "spring"
 end
 
-
-gem "cypress-rails", "~> 0.5.5", :groups => [:development, :test]
-
 gem "importmap-rails", "~> 1.1"
 
 gem "turbo-rails"
@@ -38,3 +37,14 @@ gem "turbo-rails"
 gem "sass-rails", "~> 6.0"
 
 gem "rodauth-rails", "~> 1.6"
+
+group :test do
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem "capybara"
+  gem "selenium-webdriver"
+  gem "webdrivers"
+  gem "webmock"
+end
+
+gem "faraday", "~> 2.7"
+gem "aws-sdk-s3", require: false

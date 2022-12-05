@@ -8,9 +8,10 @@ class CardsController < ApplicationController
     @card = current_account.cards.new(card_params)
 
     if @card.save
+      SignpostJob.perform_later(@card)
       redirect_to deck_path
     else
-      flash.now[:alert] = "Cannot create card with missing fields"
+      flash.now[:alert] = 'Cannot create card with missing fields'
       render :new_2
     end
   end
@@ -18,9 +19,7 @@ class CardsController < ApplicationController
   def destroy
     @card = Card.find(params[:id])
 
-    unless @card.delete
-      flash.now[:alert] = "Cannot delete card"
-    end
+    flash.now[:alert] = 'Cannot delete card' unless @card.destroy
 
     redirect_to deck_path
   end
