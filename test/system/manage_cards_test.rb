@@ -6,9 +6,7 @@ class ManageCardsTest < ApplicationSystemTestCase
   test 'allows card creation and deletion' do
     visit root_path
 
-    fill_in('Login', with: 'freddie@queen.com')
-    fill_in('Password', with: 'password')
-    click_button('Login')
+    login_as(email: 'freddie@queen.com', password: 'password')
 
     assert_selector('h1', text: 'My Deck')
     assert_no_selector('ul #cards')
@@ -115,9 +113,7 @@ class ManageCardsTest < ApplicationSystemTestCase
   test 'allows manual image fetch after a failure' do
     visit root_path
 
-    fill_in('Login', with: 'freddie@queen.com')
-    fill_in('Password', with: 'password')
-    click_button('Login')
+    login_as(email: 'freddie@queen.com', password: 'password')
 
     click_link('Add New Card')
     fill_in('Front Text', with: 'What is a cloud?')
@@ -214,9 +210,7 @@ class ManageCardsTest < ApplicationSystemTestCase
   test 'prevents creation of empty cards' do
     visit root_path
 
-    fill_in('Login', with: 'freddie@queen.com')
-    fill_in('Password', with: 'password')
-    click_button('Login')
+    login_as(email: 'freddie@queen.com', password: 'password')
 
     click_link('Add New Card')
 
@@ -230,9 +224,7 @@ class ManageCardsTest < ApplicationSystemTestCase
   test 'sanitizes dangerous input' do
     visit root_path
 
-    fill_in('Login', with: 'freddie@queen.com')
-    fill_in('Password', with: 'password')
-    click_button('Login')
+    login_as(email: 'freddie@queen.com', password: 'password')
 
     click_link('Add New Card')
 
