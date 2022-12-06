@@ -6,9 +6,7 @@ class CardTestTest < ApplicationSystemTestCase
 
     assert_no_link "Log out"
 
-    fill_in('Login', with: 'freddie@queen.com')
-    fill_in('Password', with: 'password')
-    click_button('Login')
+    login_as(email: 'freddie@queen.com', password: 'password')
 
     click_link "Log out"
 

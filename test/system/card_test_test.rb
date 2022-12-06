@@ -4,9 +4,7 @@ class CardTestTest < ApplicationSystemTestCase
   test 'cannot start test if no cards have been made' do
     visit root_path
 
-    fill_in('Login', with: 'freddie@queen.com')
-    fill_in('Password', with: 'password')
-    click_button('Login')
+    login_as(email: 'freddie@queen.com', password: 'password')
 
     find_button('Start Test', disabled: true)
   end
@@ -14,9 +12,7 @@ class CardTestTest < ApplicationSystemTestCase
   test 'presents a test with all cards' do
     visit root_path
 
-    fill_in('Login', with: 'brian@queen.com')
-    fill_in('Password', with: 'password')
-    click_button('Login')
+    login_as(email: 'brian@queen.com', password: 'password')
 
     click_button('Start Test')
 
