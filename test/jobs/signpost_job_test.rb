@@ -8,13 +8,14 @@ class SignpostJobTest < ActiveJob::TestCase
     mock_signpost_instance = Minitest::Mock.new
     mock_signpost_instance.expect(:build_and_attach_image, nil)
 
-    mock_signpost_class = Proc.new do |card|
-      assert_equal expected_card, card
+    mock_service_instantiation = Proc.new do |image_generation_client:, card:|
+      assert_equal card, expected_card
+      assert_equal ImageGeneration::Client, image_generation_client.class
 
       mock_signpost_instance
     end
 
-    SignpostService.stub :new, mock_signpost_class do
+    SignpostService.stub :new, mock_service_instantiation do
       SignpostJob.perform_now(expected_card)
     end
 

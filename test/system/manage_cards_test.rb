@@ -144,7 +144,7 @@ class ManageCardsTest < ApplicationSystemTestCase
       assert_selector('h1', text: 'My Deck')
     end
 
-    assert_raises(SignpostService::ImageGenerationError) do
+    assert_raises(ImageGeneration::Error) do
       perform_enqueued_jobs
     end
 
@@ -167,7 +167,7 @@ class ManageCardsTest < ApplicationSystemTestCase
       find("#cards")
     end
 
-    assert_raises(SignpostService::ImageGenerationError) do
+    assert_raises(ImageGeneration::Error) do
       perform_enqueued_jobs
     end
 
