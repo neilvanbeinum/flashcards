@@ -6,4 +6,8 @@ class Card < ApplicationRecord
   validates :back_text, presence: true
 
   after_create proc { |record| record.create_signpost! }
+
+  def full_text
+    [front_text, back_text].join(" ")
+  end
 end

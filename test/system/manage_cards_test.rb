@@ -58,7 +58,7 @@ class ManageCardsTest < ApplicationSystemTestCase
     end
 
     cloud_image_generation_request = stub_request(:post, ENV["IMAGE_GENERATOR_API_URL"]).with(
-      body: hash_including({ prompt: 'What is a cloud? Water vapour in the sky' })
+      body: hash_including({ prompt: 'cloud water vapour sky' })
     ).and_return(body: { data: [ { url: 'https://example.com/cloud.jpg' } ] }.to_json, status: 200)
 
     cloud_image_request = stub_request(:get, 'https://example.com/cloud.jpg').and_return(
@@ -66,7 +66,7 @@ class ManageCardsTest < ApplicationSystemTestCase
     )
 
     hedgehog_image_generation_request = stub_request(:post, ENV["IMAGE_GENERATOR_API_URL"]).with(
-      body: hash_including({ prompt: 'What is a hedgehog? Spiky rodent that lives in hedges' })
+      body: hash_including({ prompt: 'hedgehog spiky rodent lives hedges' })
     ).and_return(body: { data: [ { url: 'https://example.com/hedgehog.jpg' } ] }.to_json, status: 200)
 
     hedgehog_image_request = stub_request(:get, 'https://example.com/hedgehog.jpg').and_return(
@@ -125,7 +125,7 @@ class ManageCardsTest < ApplicationSystemTestCase
     stubbed_response = stub_request(:post, ENV["IMAGE_GENERATOR_API_URL"]).with(
       body: hash_including(
         {
-          prompt: 'What is a cloud? Water vapour in the sky'
+          prompt: 'cloud water vapour sky'
         }
       )
     ).and_return(
@@ -144,7 +144,7 @@ class ManageCardsTest < ApplicationSystemTestCase
       assert_selector('h1', text: 'My Deck')
     end
 
-    assert_raises(SignpostService::ImageGenerationError) do
+    assert_raises(ImageGeneration::Error) do
       perform_enqueued_jobs
     end
 
@@ -167,7 +167,7 @@ class ManageCardsTest < ApplicationSystemTestCase
       find("#cards")
     end
 
-    assert_raises(SignpostService::ImageGenerationError) do
+    assert_raises(ImageGeneration::Error) do
       perform_enqueued_jobs
     end
 

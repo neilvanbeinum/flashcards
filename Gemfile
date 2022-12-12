@@ -48,3 +48,5 @@ end
 
 gem "faraday", "~> 2.7"
 gem "aws-sdk-s3", require: false
+
+gem "rake_text"
