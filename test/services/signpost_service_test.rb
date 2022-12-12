@@ -6,7 +6,7 @@ class SignpostServiceTest < ActiveSupport::TestCase
     card = cards(:card_one)
 
     mock_prompt_builder = Minitest::Mock.new
-    mock_prompt_builder.expect(:extract_keywords, "front_text", ["front_text_one back_text_one"])
+    mock_prompt_builder.expect(:build, "front_text", ["front_text_one back_text_one"])
 
     mock_client = Minitest::Mock.new
     mock_client.expect(

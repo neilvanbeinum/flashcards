@@ -138,6 +138,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     minitest (5.16.3)
+    minitest-stub-const (0.6)
     net-imap (0.3.1)
       net-protocol
     net-pop (0.1.2)
@@ -271,6 +272,7 @@ DEPENDENCIES
   dotenv-rails
   faraday (~> 2.7)
   importmap-rails (~> 1.1)
+  minitest-stub-const
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.4)

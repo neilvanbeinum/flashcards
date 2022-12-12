@@ -58,7 +58,7 @@ class ManageCardsTest < ApplicationSystemTestCase
     end
 
     cloud_image_generation_request = stub_request(:post, ENV["IMAGE_GENERATOR_API_URL"]).with(
-      body: hash_including({ prompt: 'cloud water vapour sky' })
+      body: hash_including({ prompt: 'cloud water vapour sky with sunglasses' })
     ).and_return(body: { data: [ { url: 'https://example.com/cloud.jpg' } ] }.to_json, status: 200)
 
     cloud_image_request = stub_request(:get, 'https://example.com/cloud.jpg').and_return(
@@ -66,14 +66,16 @@ class ManageCardsTest < ApplicationSystemTestCase
     )
 
     hedgehog_image_generation_request = stub_request(:post, ENV["IMAGE_GENERATOR_API_URL"]).with(
-      body: hash_including({ prompt: 'hedgehog spiky rodent lives hedges' })
+      body: hash_including({ prompt: 'hedgehog spiky rodent lives hedges with sunglasses' })
     ).and_return(body: { data: [ { url: 'https://example.com/hedgehog.jpg' } ] }.to_json, status: 200)
 
     hedgehog_image_request = stub_request(:get, 'https://example.com/hedgehog.jpg').and_return(
       body: File.new('test/fixtures/files/hedgehog.jpg'), status: 200
     )
 
-    perform_enqueued_jobs
+    ImageGeneration.stub_const(:MODIFICATION_KEYWORDS, ["with sunglasses"]) do
+      perform_enqueued_jobs
+    end
 
     assert_requested(cloud_image_generation_request)
     assert_requested(cloud_image_request)
@@ -125,7 +127,7 @@ class ManageCardsTest < ApplicationSystemTestCase
     stubbed_response = stub_request(:post, ENV["IMAGE_GENERATOR_API_URL"]).with(
       body: hash_including(
         {
-          prompt: 'cloud water vapour sky'
+          prompt: 'cloud water vapour sky with sunglasses'
         }
       )
     ).and_return(
@@ -144,8 +146,10 @@ class ManageCardsTest < ApplicationSystemTestCase
       assert_selector('h1', text: 'My Deck')
     end
 
-    assert_raises(ImageGeneration::Error) do
-      perform_enqueued_jobs
+    ImageGeneration.stub_const(:MODIFICATION_KEYWORDS, ["with sunglasses"]) do
+      assert_raises(ImageGeneration::Error) do
+        perform_enqueued_jobs
+      end
     end
 
     assert_requested(stubbed_response)
@@ -167,8 +171,10 @@ class ManageCardsTest < ApplicationSystemTestCase
       find("#cards")
     end
 
-    assert_raises(ImageGeneration::Error) do
-      perform_enqueued_jobs
+    ImageGeneration.stub_const(:MODIFICATION_KEYWORDS, ["with sunglasses"]) do
+      assert_raises(ImageGeneration::Error) do
+        perform_enqueued_jobs
+      end
     end
 
     assert_requested(stubbed_response, times: 2)
@@ -192,7 +198,10 @@ class ManageCardsTest < ApplicationSystemTestCase
       find("#cards")
     end
 
-    perform_enqueued_jobs
+    ImageGeneration.stub_const(:MODIFICATION_KEYWORDS, ["with sunglasses"]) do
+      perform_enqueued_jobs
+    end
+
     assert_requested(stubbed_response, times: 3)
 
     page.refresh

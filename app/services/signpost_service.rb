@@ -12,7 +12,7 @@ class SignpostService
 
   def build_and_attach_image
     begin
-      prompt = prompt_builder.extract_keywords(card.full_text)
+      prompt = prompt_builder.build(card.full_text)
 
       image_url = image_generation_client.generated_image_url(prompt)
 
