@@ -1,24 +1,22 @@
-# README
+Local development
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+* Ruby 3.1.2
 
-Things you may want to cover:
+* Run `bundle install`
 
-* Ruby version
+* Copy `.env` to `.env.development.local` and add real values as below.
 
-* System dependencies
+* External services used for image generation and storage are Open AI and AWS S3
+  * Sign up for an account with [Open AI](https://beta.openai.com/)
+  * Copy the API key to `.env.development.local`
+  * Create an S3 user with the required policies listed in the Rails ActiveStorage documentation
+  * Copy the AWS key id and secret access key to `.env.development.local`
 
-* Configuration
+* Database commands for setup
+  * `bin/rails db:setup`
 
-* Database creation
+* Tests
+  * `bin/rails test:all`
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* Background jobs
+  * Currently using the Rails default (async in-memory)
