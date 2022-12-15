@@ -1,1 +1,5 @@
-class ImageGeneration::Error < StandardError; end
+# frozen_string_literal: true
+
+module ImageGeneration
+  class Error < StandardError; end
+end

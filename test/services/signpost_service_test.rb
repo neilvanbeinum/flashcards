@@ -1,18 +1,20 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 require 'minitest/mock'
 
 class SignpostServiceTest < ActiveSupport::TestCase
-  test "it calls the client to generate an image with a prompt, opens it, and attaches it to the card" do
+  test 'it calls the client to generate an image with a prompt, opens it, and attaches it to the card' do
     card = cards(:card_one)
 
     mock_prompt_builder = Minitest::Mock.new
-    mock_prompt_builder.expect(:build, "front_text", ["front_text_one back_text_one"])
+    mock_prompt_builder.expect(:build, 'front_text', ['front_text_one back_text_one'])
 
     mock_client = Minitest::Mock.new
     mock_client.expect(
       :generated_image_url,
-      "https://example.com/cloud.jpg",
-      ["front_text"]
+      'https://example.com/cloud.jpg',
+      ['front_text']
     )
 
     image_request = stub_request(:get, 'https://example.com/cloud.jpg').and_return(
@@ -22,7 +24,7 @@ class SignpostServiceTest < ActiveSupport::TestCase
     SignpostService.new(
       image_generation_client: mock_client,
       prompt_builder: mock_prompt_builder,
-      card: card
+      card:
     ).build_and_attach_image
 
     mock_client.verify
@@ -32,11 +34,11 @@ class SignpostServiceTest < ActiveSupport::TestCase
     card.reload
 
     assert card.signpost.attached?
-    assert_equal "cloud.jpg", card.signpost.filename.to_s
-    assert_equal "success", card.signpost.status
+    assert_equal 'cloud.jpg', card.signpost.filename.to_s
+    assert_equal 'success', card.signpost.status
   end
 
-  test "it sets the signpost status to failed when image generation fails" do
+  test 'it sets the signpost status to failed when image generation fails' do
     card = cards(:card_one)
 
     mock_client = Object.new
@@ -53,10 +55,10 @@ class SignpostServiceTest < ActiveSupport::TestCase
       SignpostService.new(
         image_generation_client: mock_client,
         prompt_builder: mock_prompt_builder,
-        card: card
+        card:
       ).build_and_attach_image
     end
 
-    assert_equal "failed", card.reload.signpost.status
+    assert_equal 'failed', card.reload.signpost.status
   end
 end

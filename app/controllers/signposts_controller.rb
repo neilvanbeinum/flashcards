@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class SignpostsController < ApplicationController
   def create
     card = Card.find(params[:card_id])
