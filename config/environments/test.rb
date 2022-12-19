@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_support/core_ext/integer/time'
 
 # The test environment is used exclusively to run your application's
@@ -54,6 +56,6 @@ Rails.application.configure do
 
   WebMock.disable_net_connect!(
     allow_localhost: true,
-    allow: "chromedriver.storage.googleapis.com"
+    allow: 'chromedriver.storage.googleapis.com'
   )
 end

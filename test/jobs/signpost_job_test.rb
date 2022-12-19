@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'test_helper'
 require 'minitest/mock'
 
@@ -8,7 +10,7 @@ class SignpostJobTest < ActiveJob::TestCase
     mock_signpost_instance = Minitest::Mock.new
     mock_signpost_instance.expect(:build_and_attach_image, nil)
 
-    mock_service_instantiation = Proc.new do |image_generation_client:, prompt_builder:, card:|
+    mock_service_instantiation = proc do |image_generation_client:, prompt_builder:, card:|
       assert_equal card, expected_card
       assert_equal ImageGeneration::Client, image_generation_client.class
       assert_equal ImageGeneration::PromptBuilder, prompt_builder.class

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/MethodLength
 class AddSignpost < ActiveRecord::Migration[7.0]
   def up
     create_table :signposts do |t|
@@ -12,9 +15,9 @@ class AddSignpost < ActiveRecord::Migration[7.0]
 
         next unless attachment
 
-        signpost = Signpost.create!(card: card)
+        signpost = Signpost.create!(card:)
 
-        attachment.update!(record_id: signpost.id, record_type: "Signpost", name: "image")
+        attachment.update!(record_id: signpost.id, record_type: 'Signpost', name: 'image')
       end
     end
   end
@@ -26,10 +29,11 @@ class AddSignpost < ActiveRecord::Migration[7.0]
 
         next unless attachment
 
-        attachment.update!(record_id: card.id, record_type: "Card", name: "signpost")
+        attachment.update!(record_id: card.id, record_type: 'Card', name: 'signpost')
       end
     end
 
     drop_table :signposts
   end
 end
+# rubocop:enable Metrics/MethodLength

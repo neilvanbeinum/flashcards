@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'application_system_test_case'
 
 class ManageCardsTest < ApplicationSystemTestCase
@@ -46,34 +48,34 @@ class ManageCardsTest < ApplicationSystemTestCase
     within('#cards') do
       within(:xpath, './li[1]') do
         assert_text('What is a cloud?')
-        assert_css("span.image-status-icon.pending")
+        assert_css('span.image-status-icon.pending')
         find_button('Delete')
       end
 
       within(:xpath, './li[2]') do
         assert_text('What is a hedgehog?')
-        assert_css("span.image-status-icon.pending")
+        assert_css('span.image-status-icon.pending')
         find_button('Delete')
       end
     end
 
-    cloud_image_generation_request = stub_request(:post, ENV["IMAGE_GENERATOR_API_URL"]).with(
+    cloud_image_generation_request = stub_request(:post, ENV.fetch('IMAGE_GENERATOR_API_URL')).with(
       body: hash_including({ prompt: 'cloud water vapour sky with sunglasses' })
-    ).and_return(body: { data: [ { url: 'https://example.com/cloud.jpg' } ] }.to_json, status: 200)
+    ).and_return(body: { data: [{ url: 'https://example.com/cloud.jpg' }] }.to_json, status: 200)
 
     cloud_image_request = stub_request(:get, 'https://example.com/cloud.jpg').and_return(
       body: File.new('test/fixtures/files/cloud.jpg'), status: 200
     )
 
-    hedgehog_image_generation_request = stub_request(:post, ENV["IMAGE_GENERATOR_API_URL"]).with(
+    hedgehog_image_generation_request = stub_request(:post, ENV.fetch('IMAGE_GENERATOR_API_URL')).with(
       body: hash_including({ prompt: 'hedgehog spiky rodent lives hedges with sunglasses' })
-    ).and_return(body: { data: [ { url: 'https://example.com/hedgehog.jpg' } ] }.to_json, status: 200)
+    ).and_return(body: { data: [{ url: 'https://example.com/hedgehog.jpg' }] }.to_json, status: 200)
 
     hedgehog_image_request = stub_request(:get, 'https://example.com/hedgehog.jpg').and_return(
       body: File.new('test/fixtures/files/hedgehog.jpg'), status: 200
     )
 
-    ImageGeneration.stub_const(:MODIFICATION_KEYWORDS, ["with sunglasses"]) do
+    ImageGeneration.stub_const(:MODIFICATION_KEYWORDS, ['with sunglasses']) do
       perform_enqueued_jobs
     end
 
@@ -87,11 +89,11 @@ class ManageCardsTest < ApplicationSystemTestCase
 
     within('#cards') do
       within(:xpath, './li[1]') do
-        assert_css("span.image-status-icon.success")
+        assert_css('span.image-status-icon.success')
       end
 
       within(:xpath, './li[2]') do
-        assert_css("span.image-status-icon.success")
+        assert_css('span.image-status-icon.success')
       end
     end
 
@@ -101,11 +103,11 @@ class ManageCardsTest < ApplicationSystemTestCase
       assert_no_selector('li', text: 'What is a hedgehog?')
     end
 
-    click_button "Start Test"
+    click_button 'Start Test'
 
-    find('#test-container').assert_text "What is a cloud?"
+    find('#test-container').assert_text 'What is a cloud?'
 
-    click_button("Flip Card")
+    click_button('Flip Card')
 
     within('#test-container') do
       assert_css('img[src$="cloud.jpg"]')
@@ -124,19 +126,19 @@ class ManageCardsTest < ApplicationSystemTestCase
 
     fill_in('Back Text', with: 'Water vapour in the sky')
 
-    stubbed_response = stub_request(:post, ENV["IMAGE_GENERATOR_API_URL"]).with(
+    stubbed_response = stub_request(:post, ENV.fetch('IMAGE_GENERATOR_API_URL')).with(
       body: hash_including(
         {
           prompt: 'cloud water vapour sky with sunglasses'
         }
       )
     ).and_return(
-      body: { error: "Something is up" }.to_json,
+      body: { error: 'Something is up' }.to_json,
       status: 200
     ).and_return(
       status: 500
     ).and_return(
-      body: { data: [ { url: 'https://example.com/cloud.jpg' } ] }.to_json,
+      body: { data: [{ url: 'https://example.com/cloud.jpg' }] }.to_json,
       status: 200
     )
 
@@ -146,7 +148,7 @@ class ManageCardsTest < ApplicationSystemTestCase
       assert_selector('h1', text: 'My Deck')
     end
 
-    ImageGeneration.stub_const(:MODIFICATION_KEYWORDS, ["with sunglasses"]) do
+    ImageGeneration.stub_const(:MODIFICATION_KEYWORDS, ['with sunglasses']) do
       assert_raises(ImageGeneration::Error) do
         perform_enqueued_jobs
       end
@@ -157,10 +159,10 @@ class ManageCardsTest < ApplicationSystemTestCase
     page.refresh
 
     assert_enqueued_jobs(1, only: SignpostJob) do
-      within("#cards") do
+      within('#cards') do
         within(:xpath, './li[1]') do
           assert_text('What is a cloud?')
-          assert_css("span.image-status-icon.failed")
+          assert_css('span.image-status-icon.failed')
 
           find_button('Retry Attachment').click
         end
@@ -168,10 +170,10 @@ class ManageCardsTest < ApplicationSystemTestCase
 
       page.refresh
 
-      find("#cards")
+      find('#cards')
     end
 
-    ImageGeneration.stub_const(:MODIFICATION_KEYWORDS, ["with sunglasses"]) do
+    ImageGeneration.stub_const(:MODIFICATION_KEYWORDS, ['with sunglasses']) do
       assert_raises(ImageGeneration::Error) do
         perform_enqueued_jobs
       end
@@ -184,10 +186,10 @@ class ManageCardsTest < ApplicationSystemTestCase
     )
 
     assert_enqueued_jobs(1, only: SignpostJob) do
-      within("#cards") do
+      within('#cards') do
         within(:xpath, './li[1]') do
           assert_text('What is a cloud?')
-          assert_css("span.image-status-icon.failed")
+          assert_css('span.image-status-icon.failed')
 
           find_button('Retry Attachment').click
         end
@@ -195,10 +197,10 @@ class ManageCardsTest < ApplicationSystemTestCase
 
       page.refresh
 
-      find("#cards")
+      find('#cards')
     end
 
-    ImageGeneration.stub_const(:MODIFICATION_KEYWORDS, ["with sunglasses"]) do
+    ImageGeneration.stub_const(:MODIFICATION_KEYWORDS, ['with sunglasses']) do
       perform_enqueued_jobs
     end
 
@@ -206,12 +208,12 @@ class ManageCardsTest < ApplicationSystemTestCase
 
     page.refresh
 
-    within("#cards") do
+    within('#cards') do
       within(:xpath, './li[1]') do
         assert_text('What is a cloud?')
-        assert_css("span.image-status-icon.success")
+        assert_css('span.image-status-icon.success')
 
-        assert_no_button("Retry Attachment")
+        assert_no_button('Retry Attachment')
       end
     end
   end

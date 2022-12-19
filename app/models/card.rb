@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Card < ApplicationRecord
   belongs_to :account
   has_one :signpost, dependent: :destroy
@@ -8,6 +10,6 @@ class Card < ApplicationRecord
   after_create proc { |record| record.create_signpost! }
 
   def full_text
-    [front_text, back_text].join(" ")
+    [front_text, back_text].join(' ')
   end
 end

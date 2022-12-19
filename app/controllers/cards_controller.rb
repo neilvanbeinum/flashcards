@@ -1,8 +1,9 @@
-class CardsController < ApplicationController
-  def new
-  end
+# frozen_string_literal: true
 
-  def new_2; end
+class CardsController < ApplicationController
+  def new; end
+
+  def new_two; end
 
   def create
     @card = current_account.cards.new(card_params)
@@ -12,7 +13,7 @@ class CardsController < ApplicationController
       redirect_to deck_path
     else
       flash.now[:alert] = 'Cannot create card with missing fields'
-      render :new_2
+      render :new_two
     end
   end
 

@@ -109,7 +109,7 @@ const renderStepOne = (cardForm) => {
       frontText: data.get("front_text"),
     }
 
-    Turbo.visit("/deck/cards/new_2")
+    Turbo.visit("/deck/cards/new_two")
   })
 }
 

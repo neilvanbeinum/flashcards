@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'net/http'
 require 'open-uri'
 
@@ -11,22 +13,29 @@ class SignpostService
   end
 
   def build_and_attach_image
-    begin
-      prompt = prompt_builder.build(card.full_text)
+    image_url = build_image_url
 
-      image_url = image_generation_client.generated_image_url(prompt)
+    open_and_attach_image(image_url)
 
-      image = URI.open(image_url)
+    card.signpost.success!
+  rescue StandardError => e
+    card.signpost.failed!
+    raise e
+  end
 
-      filename = image_url.split("/").last
-      card.signpost.attach(io: image, filename: filename)
+  private
 
-      Rails.logger.info "Image attached for Card #{ card.id } with filename #{ filename }"
+  def build_image_url
+    prompt = prompt_builder.build(card.full_text)
 
-      card.signpost.success!
-    rescue StandardError => error
-      card.signpost.failed!
-      raise error
-    end
+    image_generation_client.generated_image_url(prompt)
+  end
+
+  def open_and_attach_image(image_url)
+    image = URI.parse(image_url).open
+    filename = image_url.split('/').last
+
+    card.signpost.attach(io: image, filename:)
+    Rails.logger.info "Image attached for Card #{card.id} with filename #{filename}"
   end
 end

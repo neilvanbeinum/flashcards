@@ -1,0 +1,20 @@
+require: rubocop-rails
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - !ruby/regexp /db\/migrate\/.*rodauth.*/
+    - !ruby/regexp /db\/migrate\/.*active_storage.*/
+    - db/schema.rb
+    - bin/**/*
+
+Style/Documentation:
+  Enabled: false
+
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'test/**/*'

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class RodauthMain < Rodauth::Rails::Auth
   configure do
     # List of authentication features that are loaded.
@@ -9,7 +11,7 @@ class RodauthMain < Rodauth::Rails::Auth
     # ==> General
     # The secret key used for hashing public-facing tokens for various features.
     # Defaults to Rails `secret_key_base`, but you can use your own secret key.
-    # hmac_secret "c4d03443406002837dde73f79f2bb7a4078cc0d264d41a87eccd7bf3ad5e30aa12f1098bff9e9c01c42342b242d61cb159ce3fed44b239c1bcacc73112e18d19"
+    # hmac_secret "c4d03443406002837dde73f79f2bb7a4078cc0d264d41a87eccd7bf3ad5e30aa12f1098bff9e9c01c42342b242d61cb159ce3fed44b239c1bcacc73112e18d19" # rubocop:disable Layout/LineLength
 
     # Specify the controller used for view rendering and CSRF verification.
     rails_controller { RodauthController }
@@ -45,7 +47,7 @@ class RodauthMain < Rodauth::Rails::Auth
     # flash_error_key :error # default is :alert
 
     # Override default flash messages.
-    # create_account_notice_flash "Your account has been created. Please verify your account by visiting the confirmation link sent to your email address."
+    # create_account_notice_flash "Your account has been created. Please verify your account by visiting the confirmation link sent to your email address." # rubocop:disable Layout/LineLength
     # require_login_error_flash "Login is required for accessing this page"
     # login_notice_flash nil
 
@@ -54,7 +56,7 @@ class RodauthMain < Rodauth::Rails::Auth
     # no_matching_login_message "user with this email address doesn't exist"
     # already_an_account_with_this_login_message "user with this email address already exists"
     # password_too_short_message { "needs to have at least #{password_minimum_length} characters" }
-    # login_does_not_meet_requirements_message { "invalid email#{", #{login_requirement_message}" if login_requirement_message}" }
+    # login_does_not_meet_requirements_message { "invalid email#{", #{login_requirement_message}" if login_requirement_message}" } # rubocop:disable Layout/LineLength
 
     # Change minimum number of password characters required when creating an account.
     # password_minimum_length 8
@@ -87,7 +89,7 @@ class RodauthMain < Rodauth::Rails::Auth
 
     # ==> Redirects
     # Redirect to home page after logout.
-    logout_redirect "/"
+    logout_redirect '/'
 
     # Redirect to wherever login redirects to after account verification.
     # verify_account_redirect { login_redirect }
