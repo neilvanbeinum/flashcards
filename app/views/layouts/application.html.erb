@@ -13,12 +13,6 @@
   </head>
 
   <body>
-     <% if current_account %>
-      <nav>
-        <%= link_to "Log out", rodauth.logout_path, class: "logout-link", data: { turbo_method: :post }  %>
-      </nav>
-    <% end %>
-
     <% if notice %>
       <div class="alert alert-success"><%= notice %></div>
     <% end %>
@@ -27,8 +21,20 @@
       <div class="alert alert-danger"><%= alert %></div>
     <% end %>
 
-    <div class="main">
-      <%= yield %>
-    </div>
+    <header>
+      <strong><%= link_to "Flashcards", root_path, class: "app-name" %></strong>
+
+      <% if current_account %>
+        <nav>
+          <%= link_to "Log out", rodauth.logout_path, class: "logout-link", data: { turbo_method: :post }  %>
+        </nav>
+      <% end %>
+    </header>
+
+    <main>
+      <div class="app-container">
+        <%= yield %>
+      </div>
+    </main>
   </body>
 </html>

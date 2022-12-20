@@ -48,13 +48,13 @@ class ManageCardsTest < ApplicationSystemTestCase
     within('#cards') do
       within(:xpath, './li[1]') do
         assert_text('What is a cloud?')
-        assert_css('span.image-status-icon.pending')
+        assert_text('Image pending')
         find_button('Delete')
       end
 
       within(:xpath, './li[2]') do
         assert_text('What is a hedgehog?')
-        assert_css('span.image-status-icon.pending')
+        assert_text('Image pending')
         find_button('Delete')
       end
     end
@@ -89,11 +89,11 @@ class ManageCardsTest < ApplicationSystemTestCase
 
     within('#cards') do
       within(:xpath, './li[1]') do
-        assert_css('span.image-status-icon.success')
+        assert_text('Image success')
       end
 
       within(:xpath, './li[2]') do
-        assert_css('span.image-status-icon.success')
+        assert_text('Image success')
       end
     end
 
@@ -162,7 +162,7 @@ class ManageCardsTest < ApplicationSystemTestCase
       within('#cards') do
         within(:xpath, './li[1]') do
           assert_text('What is a cloud?')
-          assert_css('span.image-status-icon.failed')
+          assert_text('Image failed')
 
           find_button('Retry Attachment').click
         end
@@ -189,7 +189,7 @@ class ManageCardsTest < ApplicationSystemTestCase
       within('#cards') do
         within(:xpath, './li[1]') do
           assert_text('What is a cloud?')
-          assert_css('span.image-status-icon.failed')
+          assert_text('Image failed')
 
           find_button('Retry Attachment').click
         end
@@ -211,7 +211,7 @@ class ManageCardsTest < ApplicationSystemTestCase
     within('#cards') do
       within(:xpath, './li[1]') do
         assert_text('What is a cloud?')
-        assert_css('span.image-status-icon.success')
+        assert_text('Image success')
 
         assert_no_button('Retry Attachment')
       end
