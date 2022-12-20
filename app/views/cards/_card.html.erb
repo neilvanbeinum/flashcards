@@ -1,17 +1,21 @@
-<div class="card">
-  <p class="card-text"><%= card.front_text %></p>
+<article class="card">
+  <time><%= card.created_at.strftime("%d %b %Y") %></time>
+
+  <div class="main">
+    <%= card.front_text %>
+  </div>
 
   <div class="actions">
-    <span class="<%= ["image-status-icon", card.signpost.status].join(" ") %>"></span>
+    <span class="image-status <%= card.signpost.status %>">Image <%= card.signpost.status %></span>
 
     <% if card.signpost.failed? %>
-      <%= form_with model: [:deck, card, Signpost.new], url: deck_card_signpost_path(card), method: :create do |f| %>
+      <%= form_with model: [:deck, card, Signpost.new], url: deck_card_signpost_path(card), method: :create, class: "retry-form" do |f| %>
         <%= f.submit "Retry Attachment" %>
       <% end %>
     <% end %>
 
-    <%= form_with model: [:deck, card], method: :delete do |f| %>
+    <%= form_with model: [:deck, card], method: :delete, class: "delete-form" do |f| %>
       <%= f.submit "Delete", class: "delete-card" %>
     <% end %>
   </div>
-</div>
+</article>
