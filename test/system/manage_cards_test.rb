@@ -103,7 +103,7 @@ class ManageCardsTest < ApplicationSystemTestCase
       assert_no_selector('li', text: 'What is a hedgehog?')
     end
 
-    click_button 'Start Test'
+    click_link('Start Test')
 
     find('#test-container').assert_text 'What is a cloud?'
 

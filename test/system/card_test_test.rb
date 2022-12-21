@@ -8,7 +8,7 @@ class CardTestTest < ApplicationSystemTestCase
 
     login_as(email: 'freddie@queen.com', password: 'password')
 
-    find_button('Start Test', disabled: true)
+    assert_no_link('Start Test')
   end
 
   test 'presents a test with all cards' do
@@ -16,7 +16,7 @@ class CardTestTest < ApplicationSystemTestCase
 
     login_as(email: 'brian@queen.com', password: 'password')
 
-    click_button('Start Test')
+    click_link('Start Test')
 
     find('div#test-container').assert_text('front_text_one')
     click_button('Flip Card')
