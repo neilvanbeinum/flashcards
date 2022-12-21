@@ -1,7 +1,7 @@
 <h1>My Deck</h1>
 
 <% if @cards.length.positive? %>
-  <%= render @cards %>
+  <%= render partial: "cards/cards", locals: { cards: @cards } %>
 <% else %>
   <p>You don't have any cards yet</p>
 <% end %>

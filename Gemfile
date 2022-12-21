@@ -16,6 +16,7 @@ gem 'rake_text'
 gem 'rodauth-rails', '~> 1.6'
 gem 'sass-rails', '~> 6.0'
 gem 'sprockets-rails'
+gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 

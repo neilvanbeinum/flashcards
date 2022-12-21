@@ -20,7 +20,7 @@ class ManageCardsTest < ApplicationSystemTestCase
     click_button('Next')
 
     assert_selector('label', text: 'Back Text')
-    go_back
+    click_link('Back')
 
     fill_in('Front Text', with: 'What is a cloud?')
     click_button('Next')

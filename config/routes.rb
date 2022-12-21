@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       resource 'signpost', only: [:create]
     end
 
-    get 'cards/new_two', to: 'cards#new_two'
+    get 'cards/new_2', to: 'cards#new_2'
 
     get 'test', to: 'decks#test'
   end
