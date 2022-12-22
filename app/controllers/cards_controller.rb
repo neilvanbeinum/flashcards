@@ -10,7 +10,7 @@ class CardsController < ApplicationController
       SignpostJob.perform_later(@card)
       redirect_to deck_path
     else
-      flash[:alert] = 'Cannot create card with missing fields'
+      flash[:alert] = I18n.t('cards.errors.create')
       redirect_to new_deck_card_path
     end
   end
@@ -18,7 +18,7 @@ class CardsController < ApplicationController
   def destroy
     @card = Card.find(params[:id])
 
-    flash[:alert] = 'Cannot delete card' unless @card.destroy
+    flash[:alert] = I18n.t('cards.errors.destroy') unless @card.destroy
 
     redirect_to deck_path
   end
