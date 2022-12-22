@@ -1,8 +1,17 @@
 <h1>Test</h1>
 
-<div id="test-container"></div>
+<div data-controller="deck-test">
+  <div id="test-container" data-deck-test-target="testContainer"></div>
 
-<div class="controls">
-  <button id="flip-card">Flip Card</button>
-  <button id="next-card" class="primary">Next Card</button>
+  <div class="controls">
+    <button data-action="click->deck-test#flipCard">Flip Card</button>
+    <%=
+      button_tag "#{ @card_count == 1 ? 'End Test' : 'Next Card' }",
+        class: 'primary',
+        data: {
+          action: 'click->deck-test#onClickShowNextCard',
+          'deck-test-target': "showNextCardButton"
+        }
+    %>
+  </div>
 </div>
