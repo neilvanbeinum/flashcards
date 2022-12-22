@@ -10,6 +10,10 @@ class DecksController < ApplicationController
     end
   end
 
+  def test
+    @card_count = current_account.cards.length
+  end
+
   private
 
   def card_attributes_with_signposts(cards)

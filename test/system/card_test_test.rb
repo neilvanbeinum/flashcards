@@ -35,4 +35,20 @@ class CardTestTest < ApplicationSystemTestCase
 
     assert_selector('h1', text: 'My Deck')
   end
+
+  test 'can end a single-card test' do
+    card_one = cards(:card_one)
+    Card.where.not(id: card_one.id).destroy_all
+
+    visit root_path
+
+    login_as(email: 'brian@queen.com', password: 'password')
+
+    click_link('Start Test')
+
+    find('div#test-container').assert_text('front_text_one')
+    click_button('End Test')
+
+    assert_selector('h1', text: 'My Deck')
+  end
 end
