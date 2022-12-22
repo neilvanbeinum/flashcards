@@ -158,3 +158,25 @@ input[type="submit"].delete-card {
 .controls > * + * {
   margin-top: 2rem;
 }
+
+[data-controller="create-card"] .create-form-step {
+  display: none;
+}
+
+[data-controller="create-card"] .create-form-step.active {
+  display: block;
+}
+
+.back-link-wrapper {
+  display: flex;
+  align-items: center;
+  height: 4rem;
+}
+
+.back-link {
+  display: none;
+}
+
+.back-link.active {
+  display: inline-block;
+}

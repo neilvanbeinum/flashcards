@@ -1,8 +1,23 @@
 <h1>Add Card</h1>
 
-<%= form_with url: false, id: "new-card-form" do |form| %>
-  <%= form.label :front_text, "Front Text" %>
-  <%= form.text_area :front_text, required: true %>
+<div data-controller="create-card">
+  <div class="back-link-wrapper">
+    <a href="" class="back-link" data-create-card-target="backLink" data-action="click->create-card#previousStep">Back</a>
+  </div>
 
-  <%= form.submit "Next", class: "primary" %>
-<% end %>
+  <%= form_with model: [:deck, Card.new] do |form| %>
+    <div class="create-form-step active" data-create-card-target="stepOne" >
+      <%= form.label :front_text, "Front Text" %>
+      <%= form.text_area :front_text, required: true %>
+
+      <%= button_tag "Next", type: "button", class: "primary", data: { action: 'click->create-card#submitStep1' } %>
+    </div>
+
+    <div class="create-form-step" data-create-card-target="stepTwo">
+      <%= form.label :back_text, "Back Text" %>
+      <%= form.text_area :back_text, required: true %>
+
+      <%= form.submit "Create", class: "primary" %>
+    </div>
+  <% end %>
+</div>

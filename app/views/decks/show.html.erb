@@ -1,16 +1,13 @@
 <h1>My Deck</h1>
 
 <% if @cards.length.positive? %>
-  <ul id="cards">
-    <% @cards.each do |card| %>
-      <li><%= render card %></li>
-    <% end %>
-  </ul>
+  <%= render partial: "cards/cards", locals: { cards: @cards } %>
 <% else %>
   <p>You don't have any cards yet</p>
 <% end %>
 
 <div class="controls">
-  <a href=<%= new_deck_card_path %> id="add-new-card">Add New Card</a>
-  <%= button_tag "Start Test", type: "button", id: "start-test", disabled: @cards.none?, class: "primary" %>
+  <%= link_to "Add New Card", new_deck_card_path %>
+
+  <%= link_to_if @cards.length.positive?, "Start Test", test_deck_path %>
 </div>
