@@ -41,11 +41,11 @@ jobs:
           RAILS_ENV: test
         run: |
           bin/rails db:setup
-      - name: Run tests
+      - name: Run Rake task
         env:
           PGHOST: localhost
           PGUSER: postgres
           PGPASSWORD: postgres
           RAILS_ENV: test
           CI: true
-        run: bundle exec rails test:all
+        run: bundle exec rake
