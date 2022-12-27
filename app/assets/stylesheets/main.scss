@@ -1,3 +1,5 @@
+@use "sass:color";
+
 * {
   box-sizing: border-box;
 }
@@ -148,7 +150,7 @@ input[type="submit"].delete-card {
 }
 
 .primary {
-  background-color: rgb(175, 240, 172);
+  background-color: #aff0ac;
   width: 100%;
 }
 
@@ -158,4 +160,42 @@ input[type="submit"].delete-card {
 
 .controls > * + * {
   margin-top: 2rem;
+}
+
+.teaser {
+  & strong {
+    font-weight: 600;
+    padding: 0 0.2rem 0.1rem 0.3rem;
+    border-radius: 5px 3px 6px 3px;
+    background: linear-gradient(
+      to left,
+      #aff0ac,
+      #9ded99 20%,
+      #aff0ac 50%,
+      #8ce288 75%
+    );
+  }
+}
+
+.image-fan {
+  margin: 5rem 0;
+  display: flex;
+  justify-content: center;
+
+  img {
+    width: 8rem;
+    box-shadow: 1px 1px 5px gray;
+  }
+
+  img:nth-child(1) {
+    transform: rotate(-15deg);
+  }
+
+  img:nth-child(2) {
+    transform: translate(0, -2rem);
+  }
+
+  img:nth-child(3) {
+    transform: rotate(15deg);
+  }
 }
