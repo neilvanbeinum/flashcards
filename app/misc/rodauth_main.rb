@@ -39,7 +39,9 @@ class RodauthMain < Rodauth::Rails::Auth
     # delete_account_on_close? true
 
     # Redirect to the app from login and registration pages if already logged in.
-    # already_logged_in { redirect login_redirect }
+    login_redirect '/deck'
+
+    already_logged_in { redirect login_redirect }
 
     # ==> Flash
     # Match flash keys with ones already used in the Rails app.

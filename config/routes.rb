@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  root 'decks#show'
+  root to: 'static#home'
 
   resource 'deck', only: [:show] do
     resources 'cards', only: %i[new create destroy] do

@@ -4,7 +4,7 @@ require 'application_system_test_case'
 
 class CardTestTest < ApplicationSystemTestCase
   test 'cannot start test if no cards have been made' do
-    visit root_path
+    visit '/login'
 
     login_as(email: 'freddie@queen.com', password: 'password')
 
@@ -12,7 +12,7 @@ class CardTestTest < ApplicationSystemTestCase
   end
 
   test 'presents a test with all cards' do
-    visit root_path
+    visit '/login'
 
     login_as(email: 'brian@queen.com', password: 'password')
 
@@ -40,7 +40,7 @@ class CardTestTest < ApplicationSystemTestCase
     card_one = cards(:card_one)
     Card.where.not(id: card_one.id).destroy_all
 
-    visit root_path
+    visit '/login'
 
     login_as(email: 'brian@queen.com', password: 'password')
 
