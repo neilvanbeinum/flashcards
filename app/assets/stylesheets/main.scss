@@ -31,11 +31,12 @@ header {
   padding: 1rem;
   background-color: #716eff;
   color: #f2f2f2;
-  display: flex;
-  justify-content: space-between;
   border-bottom: 1px solid gray;
 
   nav {
+    display: flex;
+    justify-content: space-between;
+
     a:visited {
       color: #f2f2f2;
     }
