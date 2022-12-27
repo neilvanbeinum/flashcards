@@ -6,7 +6,7 @@ class ManageCardsTest < ApplicationSystemTestCase
   include ActiveJob::TestHelper
 
   test 'allows card creation and deletion' do
-    visit root_path
+    visit '/login'
 
     login_as(email: 'freddie@queen.com', password: 'password')
 
@@ -115,7 +115,7 @@ class ManageCardsTest < ApplicationSystemTestCase
   end
 
   test 'allows manual image fetch after a failure' do
-    visit root_path
+    visit '/login'
 
     login_as(email: 'freddie@queen.com', password: 'password')
 
@@ -219,7 +219,7 @@ class ManageCardsTest < ApplicationSystemTestCase
   end
 
   test 'prevents creation of empty cards' do
-    visit root_path
+    visit '/login'
 
     login_as(email: 'freddie@queen.com', password: 'password')
 
@@ -233,7 +233,7 @@ class ManageCardsTest < ApplicationSystemTestCase
   end
 
   test 'sanitizes dangerous input' do
-    visit root_path
+    visit '/login'
 
     login_as(email: 'freddie@queen.com', password: 'password')
 
