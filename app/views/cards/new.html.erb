@@ -10,14 +10,18 @@
       <%= form.label :front_text, "Front Text" %>
       <%= form.text_area :front_text, required: true %>
 
-      <%= button_tag "Next", type: "button", class: "primary", data: { action: 'click->create-card#submitStep1' } %>
+      <div class="form-group">
+        <%= button_tag "Next", type: "button", class: "primary", data: { action: 'click->create-card#submitStep1' } %>
+      </div>
     </div>
 
     <div class="create-form-step" data-create-card-target="stepTwo">
       <%= form.label :back_text, "Back Text" %>
       <%= form.text_area :back_text, required: true %>
 
-      <%= form.submit "Create", class: "primary" %>
+      <div class="form-group">
+        <%= form.submit "Create", class: "primary" %>
+      </div>
     </div>
   <% end %>
 </div>

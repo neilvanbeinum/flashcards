@@ -6,8 +6,10 @@
   <p>You don't have any cards yet</p>
 <% end %>
 
-<div class="controls">
-  <%= link_to "Add New Card", new_deck_card_path %>
+<div class="form-group">
+  <%= link_to "Add New Card", new_deck_card_path, class: "button" %>
+</div>
 
-  <%= link_to_if @cards.length.positive?, "Start Test", test_deck_path %>
+<div class="form-group">
+  <%= link_to_if @cards.length.positive?, "Start Test", test_deck_path, class: "button primary" %>
 </div>

@@ -14,8 +14,8 @@
       <% end %>
     <% end %>
 
-    <%= form_with model: [:deck, card], method: :delete, class: "delete-form" do |f| %>
-      <%= f.submit "Delete", class: "delete-card" %>
+    <%= form_with model: [:deck, card], method: :delete do |f| %>
+      <%= f.submit "Delete", class: "button outline secondary text-error" %>
     <% end %>
   </div>
 </article>
