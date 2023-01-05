@@ -35,7 +35,7 @@ header {
     display: flex;
     justify-content: space-between;
 
-    a:visited {
+    a, a:visited {
       color: #f2f2f2;
     }
   }
@@ -75,14 +75,13 @@ main {
 .app-container {
   width: 500px;
   margin: 0 auto;
-  padding: 2rem 1rem 2rem;
+  padding: 5rem 2rem 10rem;
   background-color: #eeeeee;
 }
 
 @media (max-width: 500px) {
   .app-container {
     width: 100%;
-    padding: 0 1rem;
   }
 }
 
@@ -121,6 +120,16 @@ button {
       #8ce288 75%
     );
   }
+
+  & strong.reverse {
+    background: linear-gradient(
+      to right,
+      #aff0ac,
+      #9ded99 20%,
+      #aff0ac 50%,
+      #8ce288 75%
+    );
+  }
 }
 
 .image-fan {
@@ -129,8 +138,14 @@ button {
   justify-content: center;
 
   img {
-    width: 8rem;
+    width: 12rem;
     box-shadow: 1px 1px 5px gray;
+  }
+
+  @media (max-width: 500px) {
+    img {
+      width: 10rem;
+    }
   }
 
   img:nth-child(1) {
@@ -143,5 +158,20 @@ button {
 
   img:nth-child(3) {
     transform: rotate(15deg);
+  }
+}
+
+.login {
+  .form-group:last-child {
+    margin-top: 4rem;
+  }
+}
+
+.sign-up {
+  border-top: 1px solid gray;
+  padding-top: 2rem;
+
+  form {
+    margin-bottom: 2rem;
   }
 }
