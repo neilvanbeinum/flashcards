@@ -35,7 +35,7 @@ header {
     display: flex;
     justify-content: space-between;
 
-    a:visited {
+    a, a:visited {
       color: #f2f2f2;
     }
   }
