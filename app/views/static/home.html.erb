@@ -19,3 +19,20 @@
 
   <p>Take your memory to the next level by signing up, today.</p>
 </article>
+
+<div class="sign-up">
+  <p><em>Flashcards is currently in closed beta. Register your interest with your email address, below.</em></p>
+
+  <%= form_with do |f| %>
+    <div class="form-group">
+      <%= f.label :email, 'Email' %>
+      <%= f.email_field :email %>
+    </div>
+
+    <div class="form-group">
+      <%= f.submit 'Register' %>
+    </div>
+  <% end %>
+
+  <p><em>Already have an account?</em> <%= link_to 'Log in here', rodauth.login_path %></p>
+</div>
