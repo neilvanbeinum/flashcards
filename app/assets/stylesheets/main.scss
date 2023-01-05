@@ -75,7 +75,7 @@ main {
 .app-container {
   width: 500px;
   margin: 0 auto;
-  padding: 5rem 2rem;
+  padding: 5rem 2rem 10rem;
   background-color: #eeeeee;
 }
 
@@ -114,6 +114,16 @@ button {
     border-radius: 5px 3px 6px 3px;
     background: linear-gradient(
       to left,
+      #aff0ac,
+      #9ded99 20%,
+      #aff0ac 50%,
+      #8ce288 75%
+    );
+  }
+
+  & strong.reverse {
+    background: linear-gradient(
+      to right,
       #aff0ac,
       #9ded99 20%,
       #aff0ac 50%,
