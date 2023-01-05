@@ -128,8 +128,14 @@ button {
   justify-content: center;
 
   img {
-    width: 8rem;
+    width: 12rem;
     box-shadow: 1px 1px 5px gray;
+  }
+
+  @media (max-width: 500px) {
+    img {
+      width: 10rem;
+    }
   }
 
   img:nth-child(1) {
