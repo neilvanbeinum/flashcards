@@ -75,14 +75,13 @@ main {
 .app-container {
   width: 500px;
   margin: 0 auto;
-  padding: 2rem 1rem 2rem;
+  padding: 5rem 2rem;
   background-color: #eeeeee;
 }
 
 @media (max-width: 500px) {
   .app-container {
     width: 100%;
-    padding: 0 1rem;
   }
 }
 
@@ -143,5 +142,11 @@ button {
 
   img:nth-child(3) {
     transform: rotate(15deg);
+  }
+}
+
+.login {
+  .form-group:last-child {
+    margin-top: 4rem;
   }
 }
