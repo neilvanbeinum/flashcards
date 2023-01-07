@@ -23,11 +23,43 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-
     }
 
     & .image form {
       display: inline;
+    }
+
+    & .image-status {
+      padding: 0.3rem 0.9rem;
+      border-radius: 10px;
+    }
+  }
+
+  &:not(.failed) {
+    .retry-form {
+      visibility: hidden;
+    }
+  }
+
+  &.pending {
+    .image-status {
+      border: 1px solid rgb(159, 139, 100);
+    }
+  }
+
+  &.success {
+    .image-status {
+      border: 1px solid #5ead5f;
+    }
+  }
+
+  &.failed {
+    .image-status {
+      border: 1px solid #c28383;
+    }
+
+    .retry-form {
+      visibility: visible;
     }
   }
 
@@ -37,22 +69,5 @@
     font-size: 1.2rem;
     font-family: Arial, Helvetica, sans-serif;
     color: #999;
-  }
-
-  .image-status {
-    padding: 0.3rem 0.9rem;
-    border-radius: 10px;
-
-    &.success {
-      border: 1px solid #5ead5f;
-    }
-
-    &.failed {
-      border: 1px solid #c28383;
-    }
-
-    &.pending {
-      border: 1px solid rgb(159, 139, 100);
-    }
   }
 }

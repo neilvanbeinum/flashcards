@@ -4,12 +4,13 @@ require 'net/http'
 require 'open-uri'
 
 class SignpostService
-  attr_reader :image_generation_client, :prompt_builder, :card
+  attr_reader :image_generation_client, :prompt_builder, :card, :signpost
 
   def initialize(image_generation_client:, prompt_builder:, card:)
     @image_generation_client = image_generation_client
     @prompt_builder = prompt_builder
     @card = card
+    @signpost = card.signpost
   end
 
   def build_and_attach_image
@@ -17,9 +18,9 @@ class SignpostService
 
     open_and_attach_image(image_url)
 
-    card.signpost.success!
+    signpost.success!
   rescue StandardError => e
-    card.signpost.failed!
+    signpost.failed!
     raise e
   end
 
@@ -35,7 +36,7 @@ class SignpostService
     image = URI.parse(image_url).open
     filename = image_url.split('/').last
 
-    card.signpost.attach(io: image, filename:)
+    signpost.attach(io: image, filename:)
     Rails.logger.info "Image attached for Card #{card.id} with filename #{filename}"
   end
 end

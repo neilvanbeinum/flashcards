@@ -85,8 +85,6 @@ class ManageCardsTest < ApplicationSystemTestCase
     assert_requested(hedgehog_image_generation_request)
     assert_requested(hedgehog_image_request)
 
-    page.refresh
-
     within('#cards') do
       within(:xpath, './li[1]') do
         assert_text('Image success')
@@ -156,8 +154,6 @@ class ManageCardsTest < ApplicationSystemTestCase
 
     assert_requested(stubbed_response)
 
-    page.refresh
-
     assert_enqueued_jobs(1, only: SignpostJob) do
       within('#cards') do
         within(:xpath, './li[1]') do
@@ -167,8 +163,6 @@ class ManageCardsTest < ApplicationSystemTestCase
           find_button('Retry Attachment').click
         end
       end
-
-      page.refresh
 
       find('#cards')
     end
@@ -195,8 +189,6 @@ class ManageCardsTest < ApplicationSystemTestCase
         end
       end
 
-      page.refresh
-
       find('#cards')
     end
 
@@ -205,8 +197,6 @@ class ManageCardsTest < ApplicationSystemTestCase
     end
 
     assert_requested(stubbed_response, times: 3)
-
-    page.refresh
 
     within('#cards') do
       within(:xpath, './li[1]') do
