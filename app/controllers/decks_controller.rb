@@ -2,7 +2,7 @@
 
 class DecksController < ApplicationController
   def show
-    @cards = current_account.cards
+    @cards = current_account.deck.cards
 
     respond_to do |format|
       format.html
@@ -11,7 +11,7 @@ class DecksController < ApplicationController
   end
 
   def test
-    @card_count = current_account.cards.length
+    @card_count = current_account.deck.cards.length
   end
 
   private

@@ -4,7 +4,7 @@ class CardsController < ApplicationController
   def new; end
 
   def create
-    @card = current_account.cards.new(card_params)
+    @card = current_account.deck.cards.new(card_params)
 
     if @card.save
       SignpostJob.perform_later(@card)
@@ -16,7 +16,7 @@ class CardsController < ApplicationController
   end
 
   def destroy
-    @card = Card.find(params[:id])
+    @card = current_account.deck.cards.find(params[:id])
 
     flash[:alert] = I18n.t('cards.errors.destroy') unless @card.destroy
 

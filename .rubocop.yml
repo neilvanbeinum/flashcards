@@ -18,3 +18,7 @@ Metrics/ClassLength:
 Metrics/BlockLength:
   Exclude:
     - 'test/**/*'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'db/migrate/*'

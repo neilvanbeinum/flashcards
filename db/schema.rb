@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_05_045808) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_07_080714) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "citext"
   enable_extension "plpgsql"
@@ -53,10 +53,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_05_045808) do
   create_table "cards", force: :cascade do |t|
     t.text "front_text", null: false
     t.text "back_text", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "deck_id", null: false
+    t.index ["deck_id"], name: "index_cards_on_deck_id"
+  end
+
+  create_table "decks", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_cards_on_account_id"
+    t.index ["account_id"], name: "index_decks_on_account_id"
   end
 
   create_table "signposts", force: :cascade do |t|
