@@ -12,7 +12,7 @@ class RodauthApp < Rodauth::Rails::App
 
     r.rodauth # route rodauth requests
 
-    rodauth.require_account unless r.path == '/'
+    rodauth.require_account unless r.path == '/' || r.path == '/cable'
 
     # ==> Authenticating requests
     # Call `rodauth.require_account` for requests that you want to

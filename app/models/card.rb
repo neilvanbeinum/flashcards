@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Card < ApplicationRecord
-  belongs_to :account
+  belongs_to :deck
   has_one :signpost, dependent: :destroy
 
   validates :front_text, presence: true

@@ -2,16 +2,16 @@
 
 class DecksController < ApplicationController
   def show
-    @cards = current_account.cards
+    @deck = current_account.deck
 
     respond_to do |format|
       format.html
-      format.json { render json: card_attributes_with_signposts(@cards) }
+      format.json { render json: card_attributes_with_signposts(@deck.cards) }
     end
   end
 
   def test
-    @card_count = current_account.cards.length
+    @card_count = current_account.deck.cards.length
   end
 
   private

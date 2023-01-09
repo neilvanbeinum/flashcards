@@ -1,9 +1,9 @@
 <h1>My Deck</h1>
 
-<% if @cards.length.positive? %>
-  <%= render partial: "cards/cards", locals: { cards: @cards } %>
+<% if @deck.cards.length.positive? %>
+  <%= render partial: "cards/cards", locals: { cards: @deck.cards, deck_id: @deck.id } %>
 <% else %>
-  <p>You don't have any cards yet</p>
+  <p id="cards" data-deck-id="<%= @deck.id %>">You don't have any cards yet</p>
 <% end %>
 
 <div class="form-group">
@@ -11,5 +11,5 @@
 </div>
 
 <div class="form-group">
-  <%= link_to_if @cards.length.positive?, "Start Test", test_deck_path, class: "button primary" %>
+  <%= link_to_if @deck.cards.length.positive?, "Start Test", test_deck_path, class: "button primary" %>
 </div>

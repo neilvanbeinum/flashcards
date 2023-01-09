@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/MethodLength
 class AddSignpost < ActiveRecord::Migration[7.0]
   def up
     create_table :signposts do |t|
@@ -36,4 +35,3 @@ class AddSignpost < ActiveRecord::Migration[7.0]
     drop_table :signposts
   end
 end
-# rubocop:enable Metrics/MethodLength
