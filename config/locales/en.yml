@@ -3,3 +3,6 @@ en:
     errors:
       create: Cannot create card with missing fields
       destroy: Cannot delete card
+  card_batches:
+    errors:
+      create: Error creating cards

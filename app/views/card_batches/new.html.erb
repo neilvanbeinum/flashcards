@@ -1,0 +1,23 @@
+<h1>Create Multiple Cards</h1>
+
+<p>Upload a CSV file</p>
+<p>Each row should contain the front and back text for a card</p>
+
+<% if @card_batch&.errors %>
+  <div class="errors">
+    <ul>
+      <% @card_batch&.errors.each do |error| %>
+        <li><%= error %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_with url: deck_card_batch_path do |f| %>
+  <%= f.label :csv_file, 'CSV File' %>
+  <%= f.file_field :csv_file, required: true %>
+
+  <div class="form-group">
+    <%= f.submit "Create Cards" %>
+  </div>
+<% end %>
