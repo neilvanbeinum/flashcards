@@ -8,6 +8,8 @@ Rails.application.routes.draw do
       resource 'signpost', only: [:create]
     end
 
+    resource 'card_batch', only: %i[new create]
+
     get 'cards/new_2', to: 'cards#new_2'
 
     get 'test', to: 'decks#test'
